@@ -12,7 +12,10 @@ Instagram Reels ve TikTok için dikey 9:16 formatında hazırlandı.
 | Ses | AAC 48 kHz stereo, −14 LUFS / −1,5 dBTP |
 | Altyazı | Görüntüye gömülü, kelime kelime, seslendirmeyle senkron |
 
-Final video: `out/enkebit_bogaz_desen_9x16.mp4`
+Videolar:
+- `out/enkebit_bogaz_desen_9x16.mp4`: ana film (120 sn)
+- `out/enkebit_kapanis_15s_9x16.mp4`: kapanış bölümü ve jumpscare (15 sn)
+- `out/enkebit_bogaz_desen_tam_135s_9x16.mp4`: ana film ile kapanış art arda (135 sn)
 
 ![Storyboard](out/storyboard.jpg)
 
@@ -47,6 +50,21 @@ Final video: `out/enkebit_bogaz_desen_9x16.mp4`
 | 7 | 01:41–01:52 | Sabah ışığı, boş oda, boğaz kontrolü, aynaya yürüyüş |
 | 8 | 01:52–02:00 | Aynada üç tırnak izi, arkada siluet, ani karartma, kırmızı başlık, tek kazıma sesi, sessizlik |
 
+### Kapanış (15 sn, izleyiciye hitap + jumpscare)
+
+| Aralık | İçerik |
+|---|---|
+| 0:00–0:02,7 | "Peki, siz daha önce Enkebit'i duydunuz mu?": ay ışığında boş yatak |
+| 0:02,7–0:07,4 | "...karanlık odanızda onunla birebir karşılaşsaydınız… ne yapardınız?": kapı köşesinde solgun gözler açılır, siluet başını yana eğer |
+| 0:07,4–0:09,5 | "Belki de şu an yalnız olduğunuzu düşünüyorsunuz.": ekranın kenarından uzun tırnaklı bir el süzülür, tırnaklar tıklar |
+| 0:09,5–0:13,5 | "Ama unutmayın… Bazı efsaneler, siz gözlerinizi kapattığınızda başlar.": tavana bakan bakış, göz kapakları kapanırken tavanda tutunan yaratık görünür |
+| 0:13,5–0:13,85 | Mutlak sessizlik, karanlıkta iki göz |
+| 0:13,85–0:14,55 | Jumpscare: çığlık atan yüz, beyaz flaş, sarsıntı, RGB kayması, glitch yırtılmaları, darbe ve sub-bass |
+| 0:14,55–0:15 | Siyah ekranda kırmızı "ENKEBİT" |
+
+Kapanış anlatımı aynı sesle (Göksel, `eleven_v4`) üretildi. 15 saniyeye sığması için yalnızca kelime sınırlarındaki
+duraklamalar kısaltıldı ve tempo ×1,07 artırıldı (`scripts/build_outro_timeline.py`). Anlatım seviyesi ana filmle eşleştirildi.
+
 Sahne sınırları, gerçek seslendirme uzunluklarına göre birkaç yüz milisaniye kaydırıldı; toplam süre 120 sn.
 
 ## Yeniden üretme
@@ -55,6 +73,8 @@ Sahne sınırları, gerçek seslendirme uzunluklarına göre birkaç yüz milisa
 python3 scripts/build_timeline.py                 # zaman çizelgesi + render/timeline.js
 node render/render_frames.cjs frames out/frames   # 2880 kare (4 paralel sekme)
 scripts/build_video.sh                            # ses miksi + loudnorm + H.264/AAC mp4
+PAGE=outro.html node render/render_frames.cjs frames out/frames_outro   # kapanış kareleri (360)
+scripts/build_outro.sh                            # kapanış miksi + 15 sn ve 135 sn videolar
 ```
 
 Tek kare önizleme: `node render/render_frames.cjs stills /tmp/kareler 34.9 92 117.5`

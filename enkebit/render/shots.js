@@ -663,7 +663,7 @@ function shotTitle(ctx, t) {
 }
 function shotBlack(ctx) { ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H); }
 
-const SHOTS = [
+let SHOTS = [
   { a: 0.0, b: 9.45, f: shotIntro },
   { a: 9.45, b: 10.2, f: shotBlack },
   { a: 10.2, b: 25.4, f: shotVillage, fin: 1.2 },

@@ -3,3 +3,6 @@ out/*.wav
 out/x264*
 out/render.log
 out/build.log
+out/frames_outro/
+out/build_outro.log
+audio/build/
