@@ -32,7 +32,7 @@ if (mode === 'stills') {
   }
 } else {
   const fps = 24;
-  const from = parseInt(rest[0] ?? '0'), to = parseInt(rest[1] ?? String((process.env.PAGE === 'outro.html' ? 15 : 120) * fps)), workers = parseInt(rest[2] ?? '4');
+  const from = parseInt(rest[0] ?? '0'), to = parseInt(rest[1] ?? String(({ 'outro.html': 15, 'story.html': 30 }[process.env.PAGE] || 120) * fps)), workers = parseInt(rest[2] ?? '4');
   const t0 = Date.now(); let done = 0;
   await Promise.all(Array.from({ length: workers }, async (_, k) => {
     const page = await openPage(browser);

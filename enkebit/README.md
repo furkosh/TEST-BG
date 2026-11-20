@@ -16,6 +16,7 @@ Videolar:
 - `out/enkebit_bogaz_desen_9x16.mp4`: ana film (120 sn)
 - `out/enkebit_kapanis_15s_9x16.mp4`: kapanış bölümü ve jumpscare (15 sn)
 - `out/enkebit_bogaz_desen_tam_135s_9x16.mp4`: ana film ile kapanış art arda (135 sn)
+- `out/enkebit_story_30s_9x16.mp4`: Instagram Story fragmanı, Enkebit hakkında bilgiler + "Saat 12:00 Reels" duyurusu (30 sn)
 
 ![Storyboard](out/storyboard.jpg)
 
@@ -65,6 +66,25 @@ Videolar:
 Kapanış anlatımı aynı sesle (Göksel, `eleven_v4`) üretildi. 15 saniyeye sığması için yalnızca kelime sınırlarındaki
 duraklamalar kısaltıldı ve tempo ×1,07 artırıldı (`scripts/build_outro_timeline.py`). Anlatım seviyesi ana filmle eşleştirildi.
 
+### Instagram Story fragmanı (30 sn)
+
+Hikâyenin sonunu açık etmeden Enkebit'i halk inanışı olarak anlatır ve saat 12:00'deki Reels videosunu duyurur.
+Ekranın üst kısmında belgesel tarzı bilgi kartları var; altyazı, ses ve çizim tarzı filmle aynı.
+
+| Aralık | Anlatım | Görüntü / kart |
+|---|---|---|
+| 0–4,5 | "İç Anadolu'da, geceleri fısıltıyla anlatılan bir varlık var:" | Karlı köy · HALK İNANIŞI / İç Anadolu |
+| 4,6–5,9 | "Enkebit." | Kırmızı glitch başlık, karanlıkta gözler |
+| 5,9–9,9 | "Anlatılara göre uyuyanların göğsüne çöker, boğazlarını sıkar." | Göğse çöken yaratık, boğaza uzanan el |
+| 9,9–14,2 | "Başında altın bir fes, sağ elinin ortasında bir delik varmış." | Halk anlatısı levhası: ALTIN FES / ELİNDE DELİK etiketleri |
+| 14,2–17,1 | "O fesi kapan kişiye… zarar veremezmiş." | Bir el fesi kapar · KORUNMA YOLU |
+| 17,1–21,6 | "Bölgede şu söz bile vardır: 'Enkebit gibi çöktün, git başımdan!'" | Deyim, kelime kelime aydınlanır |
+| 21,6–25,4 | "Enkebit'in hikâyesi… saat 12'de Reels'te." | Antika saat tam 12'ye vurur |
+| 25,4–30 | "Gözlerini… kapatma." (yaratık fısıltısı) | ENKEBİT: BOĞAZ DEŞEN · SAAT 12:00 kartı |
+
+Bilgilerin kaynağı halk anlatılarını derleyen yayınlar (Küre Ansiklopedi, Milliyet, Webtekno). Kaynaklar Enkebit'i İç Anadolu
+(Sivas) anlatılarına bağlıyor; ayrıntılar yöreden yöreye değişebilir. Bu yüzden metin "anlatılara göre" diliyle yazıldı.
+
 Sahne sınırları, gerçek seslendirme uzunluklarına göre birkaç yüz milisaniye kaydırıldı; toplam süre 120 sn.
 
 ## Yeniden üretme
@@ -75,6 +95,8 @@ node render/render_frames.cjs frames out/frames   # 2880 kare (4 paralel sekme)
 scripts/build_video.sh                            # ses miksi + loudnorm + H.264/AAC mp4
 PAGE=outro.html node render/render_frames.cjs frames out/frames_outro   # kapanış kareleri (360)
 scripts/build_outro.sh                            # kapanış miksi + 15 sn ve 135 sn videolar
+PAGE=story.html node render/render_frames.cjs frames out/frames_story   # story kareleri (720)
+scripts/build_story.sh                            # 30 sn Instagram Story
 ```
 
 Tek kare önizleme: `node render/render_frames.cjs stills /tmp/kareler 34.9 92 117.5`

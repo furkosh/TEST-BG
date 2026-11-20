@@ -41,5 +41,6 @@ window.renderFrame = (t) => {
   }
   paperTexture(ctx, 0.12);
   grain(ctx, t, 0.16);
+  if (window.OVERLAY) { resetCtx(ctx); window.OVERLAY(ctx, t); resetCtx(ctx); }   // story info cards
   drawSubtitles(ctx, t);
 };
