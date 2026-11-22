@@ -1,0 +1,2137 @@
+{
+ "duration": 135.0,
+ "fps": 24,
+ "width": 1080,
+ "height": 1920,
+ "clips": {
+  "s1": {
+   "file": "audio/raw/s1.mp3",
+   "start": 0.4,
+   "stage": null,
+   "cut": null
+  },
+  "s2": {
+   "file": "audio/raw/s2.mp3",
+   "start": 10.6,
+   "stage": null,
+   "cut": null
+  },
+  "m1": {
+   "file": "audio/raw/m1.mp3",
+   "start": 23.0,
+   "stage": 0,
+   "cut": null
+  },
+  "s3": {
+   "file": "audio/raw/s3.mp3",
+   "start": 25.6,
+   "stage": null,
+   "cut": null
+  },
+  "m1b": {
+   "file": "audio/raw/m1.mp3",
+   "start": 37.9,
+   "stage": 1,
+   "cut": 1.0
+  },
+  "s4": {
+   "file": "audio/raw/s4.mp3",
+   "start": 38.9,
+   "stage": null,
+   "cut": null
+  },
+  "s5": {
+   "file": "audio/raw/s5.mp3",
+   "start": 52.3,
+   "stage": null,
+   "cut": null
+  },
+  "m2": {
+   "file": "audio/raw/m2.mp3",
+   "start": 66.3,
+   "stage": 2,
+   "cut": null
+  },
+  "s6": {
+   "file": "audio/raw/s6.mp3",
+   "start": 70.6,
+   "stage": null,
+   "cut": null
+  },
+  "s7": {
+   "file": "audio/raw/s7.mp3",
+   "start": 88.8,
+   "stage": null,
+   "cut": null
+  },
+  "m3": {
+   "file": "audio/raw/m3.mp3",
+   "start": 101.9,
+   "stage": 3,
+   "cut": null
+  },
+  "s8": {
+   "file": "audio/raw/s8.mp3",
+   "start": 109.6,
+   "stage": null,
+   "cut": null
+  },
+  "s9": {
+   "file": "audio/raw/s9.mp3",
+   "start": 119.6,
+   "stage": null,
+   "cut": null
+  },
+  "m4": {
+   "file": "audio/raw/m4.mp3",
+   "start": 133.0,
+   "stage": 3,
+   "cut": null
+  }
+ },
+ "scenes": [
+  {
+   "id": 1,
+   "start": 0.0,
+   "end": 10.4
+  },
+  {
+   "id": 2,
+   "start": 10.4,
+   "end": 22.9
+  },
+  {
+   "id": 3,
+   "start": 22.9,
+   "end": 38.4
+  },
+  {
+   "id": 4,
+   "start": 38.4,
+   "end": 51.7
+  },
+  {
+   "id": 5,
+   "start": 51.7,
+   "end": 70.0
+  },
+  {
+   "id": 6,
+   "start": 70.0,
+   "end": 88.6
+  },
+  {
+   "id": 7,
+   "start": 88.6,
+   "end": 103.9
+  },
+  {
+   "id": 8,
+   "start": 103.9,
+   "end": 119.4
+  },
+  {
+   "id": 9,
+   "start": 119.4,
+   "end": 135.0
+  }
+ ],
+ "events": {
+  "s1_eyes": 7.4,
+  "s1_turn": 8.75,
+  "s1_black": 9.3,
+  "s2_stop": 19.0,
+  "s2_shadow": [
+   20.6,
+   22.8
+  ],
+  "s3_sweep": [
+   29.6,
+   34.0
+  ],
+  "s3_hair": 34.6,
+  "s3_behind": 37.9,
+  "s4_child": 40.6,
+  "s4_old": 43.2,
+  "s4_all": [
+   45.0,
+   50.6
+  ],
+  "s4_silence": 50.7,
+  "s5_hand": 52.4,
+  "s5_body": 55.5,
+  "s5_head1": 57.6,
+  "s5_heads": [
+   59.6,
+   63.4
+  ],
+  "s5_turn": [
+   63.5,
+   66.2
+  ],
+  "s5_fall": 69.0,
+  "s6_branch": [
+   71.5,
+   73.2,
+   74.6
+  ],
+  "s6_shake": 75.6,
+  "s6_shadow": 78.0,
+  "s6_fall": 80.6,
+  "s6_heads": [
+   82.4,
+   85.4
+  ],
+  "s6_cabin": 85.6,
+  "s7_slam": 88.7,
+  "s7_knocks": [
+   93.0,
+   93.75,
+   94.5
+  ],
+  "s7_mother": 95.6,
+  "s7_hide": 96.0,
+  "s7_stop": 99.6,
+  "s7_creak": 100.3,
+  "s8_eyes": 103.9,
+  "s8_look": [
+   105.6,
+   107.0
+  ],
+  "s8_faces": [
+   107.0,
+   108.85
+  ],
+  "s8_black": 108.9,
+  "s8_window": 117.2,
+  "s9_shadow": 123.5,
+  "s9_turn": [
+   127.0,
+   131.6
+  ],
+  "s9_dark": 131.8,
+  "title": [
+   133.4,
+   134.9
+  ]
+ },
+ "words": [
+  {
+   "text": "Eskiler",
+   "start": 0.56,
+   "end": 1.12,
+   "clip": "s1",
+   "red": false,
+   "creature": false,
+   "show_until": 1.28
+  },
+  {
+   "text": "ona",
+   "start": 1.28,
+   "end": 1.52,
+   "clip": "s1",
+   "red": false,
+   "creature": false,
+   "show_until": 1.56
+  },
+  {
+   "text": "Yalmavuz",
+   "start": 1.56,
+   "end": 2.08,
+   "clip": "s1",
+   "red": true,
+   "creature": false,
+   "show_until": 2.16
+  },
+  {
+   "text": "derdi.",
+   "start": 2.16,
+   "end": 2.88,
+   "clip": "s1",
+   "red": false,
+   "creature": false,
+   "show_until": 3.2
+  },
+  {
+   "text": "Yedi",
+   "start": 3.2,
+   "end": 3.36,
+   "clip": "s1",
+   "red": true,
+   "creature": false,
+   "show_until": 3.44
+  },
+  {
+   "text": "başlı,",
+   "start": 3.44,
+   "end": 4.12,
+   "clip": "s1",
+   "red": false,
+   "creature": false,
+   "show_until": 4.32
+  },
+  {
+   "text": "insan",
+   "start": 4.32,
+   "end": 4.72,
+   "clip": "s1",
+   "red": false,
+   "creature": false,
+   "show_until": 4.8
+  },
+  {
+   "text": "yiyen",
+   "start": 4.8,
+   "end": 5.12,
+   "clip": "s1",
+   "red": false,
+   "creature": false,
+   "show_until": 5.16
+  },
+  {
+   "text": "bir",
+   "start": 5.16,
+   "end": 5.2,
+   "clip": "s1",
+   "red": false,
+   "creature": false,
+   "show_until": 5.24
+  },
+  {
+   "text": "yaratık…",
+   "start": 5.24,
+   "end": 6.0,
+   "clip": "s1",
+   "red": true,
+   "creature": false,
+   "show_until": 6.4
+  },
+  {
+   "text": "Sesini",
+   "start": 6.4,
+   "end": 6.8,
+   "clip": "s1",
+   "red": false,
+   "creature": false,
+   "show_until": 6.84
+  },
+  {
+   "text": "duyduğunuzda,",
+   "start": 6.84,
+   "end": 7.72,
+   "clip": "s1",
+   "red": false,
+   "creature": false,
+   "show_until": 7.92
+  },
+  {
+   "text": "çoğu",
+   "start": 7.92,
+   "end": 8.08,
+   "clip": "s1",
+   "red": false,
+   "creature": false,
+   "show_until": 8.16
+  },
+  {
+   "text": "zaman",
+   "start": 8.16,
+   "end": 8.4,
+   "clip": "s1",
+   "red": false,
+   "creature": false,
+   "show_until": 8.48
+  },
+  {
+   "text": "kaçmak",
+   "start": 8.48,
+   "end": 8.8,
+   "clip": "s1",
+   "red": false,
+   "creature": false,
+   "show_until": 8.88
+  },
+  {
+   "text": "için",
+   "start": 8.88,
+   "end": 9.12,
+   "clip": "s1",
+   "red": false,
+   "creature": false,
+   "show_until": 9.16
+  },
+  {
+   "text": "çok",
+   "start": 9.16,
+   "end": 9.28,
+   "clip": "s1",
+   "red": false,
+   "creature": false,
+   "show_until": 9.36
+  },
+  {
+   "text": "geç",
+   "start": 9.36,
+   "end": 9.52,
+   "clip": "s1",
+   "red": false,
+   "creature": false,
+   "show_until": 9.6
+  },
+  {
+   "text": "olurdu.",
+   "start": 9.6,
+   "end": 10.24,
+   "clip": "s1",
+   "red": false,
+   "creature": false,
+   "show_until": 10.69
+  },
+  {
+   "text": "Yıllar",
+   "start": 10.76,
+   "end": 11.08,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 11.12
+  },
+  {
+   "text": "önce,",
+   "start": 11.12,
+   "end": 11.76,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 11.96
+  },
+  {
+   "text": "odun",
+   "start": 11.96,
+   "end": 12.2,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 12.28
+  },
+  {
+   "text": "toplamak",
+   "start": 12.28,
+   "end": 12.68,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 12.72
+  },
+  {
+   "text": "için",
+   "start": 12.72,
+   "end": 12.92,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 13.04
+  },
+  {
+   "text": "ormana",
+   "start": 13.04,
+   "end": 13.32,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 13.4
+  },
+  {
+   "text": "gitmiştim.",
+   "start": 13.4,
+   "end": 14.2,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 14.52
+  },
+  {
+   "text": "Hava",
+   "start": 14.52,
+   "end": 14.68,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 14.76
+  },
+  {
+   "text": "karardığında",
+   "start": 14.76,
+   "end": 15.4,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 15.56
+  },
+  {
+   "text": "dönüş",
+   "start": 15.56,
+   "end": 15.8,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 15.88
+  },
+  {
+   "text": "yolunu",
+   "start": 15.88,
+   "end": 16.12,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 16.2
+  },
+  {
+   "text": "bulamadım.",
+   "start": 16.2,
+   "end": 16.92,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 17.16
+  },
+  {
+   "text": "Her",
+   "start": 17.16,
+   "end": 17.4,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 17.52
+  },
+  {
+   "text": "yer",
+   "start": 17.52,
+   "end": 17.64,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 17.76
+  },
+  {
+   "text": "birbirine",
+   "start": 17.76,
+   "end": 18.12,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 18.24
+  },
+  {
+   "text": "benziyordu.",
+   "start": 18.24,
+   "end": 18.84,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 19.29
+  },
+  {
+   "text": "Sonra",
+   "start": 19.512,
+   "end": 19.72,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 19.96
+  },
+  {
+   "text": "ağaçların",
+   "start": 19.96,
+   "end": 20.44,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 20.56
+  },
+  {
+   "text": "arasından",
+   "start": 20.56,
+   "end": 20.92,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 21.0
+  },
+  {
+   "text": "bir",
+   "start": 21.0,
+   "end": 21.08,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 21.16
+  },
+  {
+   "text": "kadın",
+   "start": 21.16,
+   "end": 21.32,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 21.4
+  },
+  {
+   "text": "sesi",
+   "start": 21.4,
+   "end": 21.6,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 21.64
+  },
+  {
+   "text": "duydum.",
+   "start": 21.64,
+   "end": 22.28,
+   "clip": "s2",
+   "red": false,
+   "creature": false,
+   "show_until": 22.73
+  },
+  {
+   "text": "Oğlum…",
+   "start": 23.16,
+   "end": 23.92,
+   "clip": "m1",
+   "red": true,
+   "creature": true,
+   "show_until": 24.2
+  },
+  {
+   "text": "Buraya",
+   "start": 24.2,
+   "end": 24.52,
+   "clip": "m1",
+   "red": false,
+   "creature": true,
+   "show_until": 24.6
+  },
+  {
+   "text": "gel…",
+   "start": 24.6,
+   "end": 25.08,
+   "clip": "m1",
+   "red": true,
+   "creature": true,
+   "show_until": 25.53
+  },
+  {
+   "text": "Bana",
+   "start": 25.76,
+   "end": 26.0,
+   "clip": "s3",
+   "red": false,
+   "creature": false,
+   "show_until": 26.08
+  },
+  {
+   "text": "ismimle",
+   "start": 26.08,
+   "end": 26.56,
+   "clip": "s3",
+   "red": false,
+   "creature": false,
+   "show_until": 26.68
+  },
+  {
+   "text": "sesleniyordu.",
+   "start": 26.68,
+   "end": 27.64,
+   "clip": "s3",
+   "red": false,
+   "creature": false,
+   "show_until": 27.92
+  },
+  {
+   "text": "Sesini",
+   "start": 27.92,
+   "end": 28.32,
+   "clip": "s3",
+   "red": false,
+   "creature": false,
+   "show_until": 28.36
+  },
+  {
+   "text": "hemen",
+   "start": 28.36,
+   "end": 28.64,
+   "clip": "s3",
+   "red": false,
+   "creature": false,
+   "show_until": 28.72
+  },
+  {
+   "text": "tanıdım.",
+   "start": 28.72,
+   "end": 29.32,
+   "clip": "s3",
+   "red": false,
+   "creature": false,
+   "show_until": 29.6
+  },
+  {
+   "text": "Annemdi…",
+   "start": 29.6,
+   "end": 30.52,
+   "clip": "s3",
+   "red": true,
+   "creature": false,
+   "show_until": 30.933
+  },
+  {
+   "text": "Ama",
+   "start": 30.933,
+   "end": 31.04,
+   "clip": "s3",
+   "red": false,
+   "creature": false,
+   "show_until": 31.12
+  },
+  {
+   "text": "annem",
+   "start": 31.12,
+   "end": 31.52,
+   "clip": "s3",
+   "red": false,
+   "creature": false,
+   "show_until": 31.6
+  },
+  {
+   "text": "on",
+   "start": 31.6,
+   "end": 31.76,
+   "clip": "s3",
+   "red": false,
+   "creature": false,
+   "show_until": 31.84
+  },
+  {
+   "text": "yıl",
+   "start": 31.84,
+   "end": 31.92,
+   "clip": "s3",
+   "red": false,
+   "creature": false,
+   "show_until": 32.0
+  },
+  {
+   "text": "önce",
+   "start": 32.0,
+   "end": 32.24,
+   "clip": "s3",
+   "red": false,
+   "creature": false,
+   "show_until": 32.28
+  },
+  {
+   "text": "ölmüştü.",
+   "start": 32.28,
+   "end": 33.12,
+   "clip": "s3",
+   "red": true,
+   "creature": false,
+   "show_until": 33.44
+  },
+  {
+   "text": "Cevap",
+   "start": 33.44,
+   "end": 33.68,
+   "clip": "s3",
+   "red": false,
+   "creature": false,
+   "show_until": 33.76
+  },
+  {
+   "text": "vermedim.",
+   "start": 33.76,
+   "end": 34.52,
+   "clip": "s3",
+   "red": false,
+   "creature": false,
+   "show_until": 34.8
+  },
+  {
+   "text": "Derken",
+   "start": 34.8,
+   "end": 35.28,
+   "clip": "s3",
+   "red": false,
+   "creature": false,
+   "show_until": 35.36
+  },
+  {
+   "text": "aynı",
+   "start": 35.36,
+   "end": 35.6,
+   "clip": "s3",
+   "red": false,
+   "creature": false,
+   "show_until": 35.68
+  },
+  {
+   "text": "ses,",
+   "start": 35.68,
+   "end": 36.08,
+   "clip": "s3",
+   "red": false,
+   "creature": false,
+   "show_until": 36.16
+  },
+  {
+   "text": "tam",
+   "start": 36.16,
+   "end": 36.24,
+   "clip": "s3",
+   "red": false,
+   "creature": false,
+   "show_until": 36.32
+  },
+  {
+   "text": "arkamdan",
+   "start": 36.32,
+   "end": 36.8,
+   "clip": "s3",
+   "red": false,
+   "creature": false,
+   "show_until": 36.88
+  },
+  {
+   "text": "tekrar",
+   "start": 36.88,
+   "end": 37.2,
+   "clip": "s3",
+   "red": false,
+   "creature": false,
+   "show_until": 37.24
+  },
+  {
+   "text": "geldi.",
+   "start": 37.24,
+   "end": 37.84,
+   "clip": "s3",
+   "red": false,
+   "creature": false,
+   "show_until": 38.06
+  },
+  {
+   "text": "Oğlum…",
+   "start": 38.06,
+   "end": 38.82,
+   "clip": "m1b",
+   "red": true,
+   "creature": true,
+   "show_until": 39.27
+  },
+  {
+   "text": "Birden",
+   "start": 39.3,
+   "end": 39.78,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 40.02
+  },
+  {
+   "text": "başka",
+   "start": 40.02,
+   "end": 40.26,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 40.34
+  },
+  {
+   "text": "sesler",
+   "start": 40.34,
+   "end": 40.66,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 40.74
+  },
+  {
+   "text": "duymaya",
+   "start": 40.74,
+   "end": 41.06,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 41.1
+  },
+  {
+   "text": "başladım.",
+   "start": 41.1,
+   "end": 41.62,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 42.07
+  },
+  {
+   "text": "Çocuklar,",
+   "start": 42.1,
+   "end": 42.86,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 42.98
+  },
+  {
+   "text": "kadınlar,",
+   "start": 42.98,
+   "end": 43.7,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 43.78
+  },
+  {
+   "text": "yaşlı",
+   "start": 43.78,
+   "end": 44.1,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 44.22
+  },
+  {
+   "text": "insanlar…",
+   "start": 44.22,
+   "end": 45.3,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 45.353
+  },
+  {
+   "text": "Hepsi",
+   "start": 45.353,
+   "end": 45.54,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 45.62
+  },
+  {
+   "text": "bana",
+   "start": 45.62,
+   "end": 45.78,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 45.86
+  },
+  {
+   "text": "sesleniyordu.",
+   "start": 45.86,
+   "end": 46.82,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 47.127
+  },
+  {
+   "text": "Ama",
+   "start": 47.127,
+   "end": 47.3,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 47.34
+  },
+  {
+   "text": "korkunç",
+   "start": 47.34,
+   "end": 47.74,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 47.78
+  },
+  {
+   "text": "olan",
+   "start": 47.78,
+   "end": 48.02,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 48.1
+  },
+  {
+   "text": "şuydu:",
+   "start": 48.1,
+   "end": 48.98,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 49.06
+  },
+  {
+   "text": "Seslerin",
+   "start": 49.06,
+   "end": 49.54,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 49.62
+  },
+  {
+   "text": "tamamı",
+   "start": 49.62,
+   "end": 50.26,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 50.34
+  },
+  {
+   "text": "aynı",
+   "start": 50.34,
+   "end": 50.5,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 50.58
+  },
+  {
+   "text": "noktadan",
+   "start": 50.58,
+   "end": 50.98,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 51.06
+  },
+  {
+   "text": "geliyordu.",
+   "start": 51.06,
+   "end": 51.86,
+   "clip": "s4",
+   "red": false,
+   "creature": false,
+   "show_until": 52.31
+  },
+  {
+   "text": "Fenerimi",
+   "start": 52.54,
+   "end": 53.02,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 53.06
+  },
+  {
+   "text": "kaldırdığımda",
+   "start": 53.06,
+   "end": 53.82,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 53.98
+  },
+  {
+   "text": "onu",
+   "start": 53.98,
+   "end": 54.14,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 54.22
+  },
+  {
+   "text": "gördüm.",
+   "start": 54.22,
+   "end": 54.94,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 55.26
+  },
+  {
+   "text": "İnsan",
+   "start": 55.26,
+   "end": 55.66,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 55.74
+  },
+  {
+   "text": "bedenine",
+   "start": 55.74,
+   "end": 56.06,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 56.14
+  },
+  {
+   "text": "benzeyen",
+   "start": 56.14,
+   "end": 56.54,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 56.62
+  },
+  {
+   "text": "devasa",
+   "start": 56.62,
+   "end": 57.18,
+   "clip": "s5",
+   "red": true,
+   "creature": false,
+   "show_until": 57.26
+  },
+  {
+   "text": "bir",
+   "start": 57.26,
+   "end": 57.34,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 57.393
+  },
+  {
+   "text": "şeydi.",
+   "start": 57.393,
+   "end": 58.22,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 58.3
+  },
+  {
+   "text": "Omuzlarının",
+   "start": 58.3,
+   "end": 58.78,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 58.86
+  },
+  {
+   "text": "üzerinde",
+   "start": 58.86,
+   "end": 59.26,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 59.34
+  },
+  {
+   "text": "yedi",
+   "start": 59.34,
+   "end": 59.5,
+   "clip": "s5",
+   "red": true,
+   "creature": false,
+   "show_until": 59.58
+  },
+  {
+   "text": "baş",
+   "start": 59.58,
+   "end": 59.74,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 59.82
+  },
+  {
+   "text": "vardı.",
+   "start": 59.82,
+   "end": 60.62,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 60.673
+  },
+  {
+   "text": "Hepsi",
+   "start": 60.673,
+   "end": 60.86,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 60.94
+  },
+  {
+   "text": "bana",
+   "start": 60.94,
+   "end": 61.1,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 61.18
+  },
+  {
+   "text": "bakıyordu.",
+   "start": 61.18,
+   "end": 61.74,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 62.19
+  },
+  {
+   "text": "İçlerinden",
+   "start": 62.273,
+   "end": 62.86,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 62.94
+  },
+  {
+   "text": "biri",
+   "start": 62.94,
+   "end": 63.18,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 63.42
+  },
+  {
+   "text": "annemin",
+   "start": 63.42,
+   "end": 63.82,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 63.9
+  },
+  {
+   "text": "sesiyle",
+   "start": 63.9,
+   "end": 64.22,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 64.3
+  },
+  {
+   "text": "konuşmaya",
+   "start": 64.3,
+   "end": 64.7,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 64.78
+  },
+  {
+   "text": "devam",
+   "start": 64.78,
+   "end": 65.1,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 65.14
+  },
+  {
+   "text": "ediyordu.",
+   "start": 65.14,
+   "end": 65.82,
+   "clip": "s5",
+   "red": false,
+   "creature": false,
+   "show_until": 66.27
+  },
+  {
+   "text": "Neden",
+   "start": 66.54,
+   "end": 66.86,
+   "clip": "m2",
+   "red": false,
+   "creature": true,
+   "show_until": 66.94
+  },
+  {
+   "text": "kaçıyorsun,",
+   "start": 66.94,
+   "end": 67.9,
+   "clip": "m2",
+   "red": true,
+   "creature": true,
+   "show_until": 67.98
+  },
+  {
+   "text": "oğlum?",
+   "start": 67.98,
+   "end": 68.7,
+   "clip": "m2",
+   "red": true,
+   "creature": true,
+   "show_until": 69.15
+  },
+  {
+   "text": "Koşmaya",
+   "start": 70.92,
+   "end": 71.32,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 71.4
+  },
+  {
+   "text": "başladım.",
+   "start": 71.4,
+   "end": 72.08,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 72.36
+  },
+  {
+   "text": "Arkama",
+   "start": 72.36,
+   "end": 72.68,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 72.76
+  },
+  {
+   "text": "bakmaya",
+   "start": 72.76,
+   "end": 73.0,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 73.12
+  },
+  {
+   "text": "cesaret",
+   "start": 73.12,
+   "end": 73.48,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 73.52
+  },
+  {
+   "text": "edemiyordum.",
+   "start": 73.52,
+   "end": 74.52,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 74.56
+  },
+  {
+   "text": "Ama",
+   "start": 74.56,
+   "end": 74.68,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 74.76
+  },
+  {
+   "text": "onun",
+   "start": 74.76,
+   "end": 74.92,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 75.0
+  },
+  {
+   "text": "sesleri",
+   "start": 75.0,
+   "end": 75.32,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 75.4
+  },
+  {
+   "text": "peşimdeydi.",
+   "start": 75.4,
+   "end": 76.36,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 76.742
+  },
+  {
+   "text": "Bir",
+   "start": 76.742,
+   "end": 76.76,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 76.84
+  },
+  {
+   "text": "ara",
+   "start": 76.84,
+   "end": 77.0,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 77.04
+  },
+  {
+   "text": "kendi",
+   "start": 77.04,
+   "end": 77.32,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 77.44
+  },
+  {
+   "text": "sesimi",
+   "start": 77.44,
+   "end": 77.72,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 77.773
+  },
+  {
+   "text": "bile",
+   "start": 77.773,
+   "end": 77.88,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 77.96
+  },
+  {
+   "text": "duydum.",
+   "start": 77.96,
+   "end": 78.76,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 78.8
+  },
+  {
+   "text": "Sanki",
+   "start": 78.8,
+   "end": 79.08,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 79.16
+  },
+  {
+   "text": "ormanın",
+   "start": 79.16,
+   "end": 79.48,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 79.52
+  },
+  {
+   "text": "içinden",
+   "start": 79.52,
+   "end": 79.96,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 80.04
+  },
+  {
+   "text": "başka",
+   "start": 80.04,
+   "end": 80.28,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 80.36
+  },
+  {
+   "text": "bir",
+   "start": 80.36,
+   "end": 80.44,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 80.52
+  },
+  {
+   "text": "ben,",
+   "start": 80.52,
+   "end": 80.92,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 80.96
+  },
+  {
+   "text": "bana",
+   "start": 80.96,
+   "end": 81.16,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 81.213
+  },
+  {
+   "text": "durmamı",
+   "start": 81.213,
+   "end": 81.56,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 81.6
+  },
+  {
+   "text": "söylüyordu.",
+   "start": 81.6,
+   "end": 82.44,
+   "clip": "s6",
+   "red": false,
+   "creature": false,
+   "show_until": 82.89
+  },
+  {
+   "text": "Bir",
+   "start": 89.04,
+   "end": 89.12,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 89.2
+  },
+  {
+   "text": "kulübeye",
+   "start": 89.2,
+   "end": 89.6,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 89.68
+  },
+  {
+   "text": "sığındım.",
+   "start": 89.68,
+   "end": 90.48,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 90.8
+  },
+  {
+   "text": "Kapıyı",
+   "start": 90.8,
+   "end": 91.08,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 91.12
+  },
+  {
+   "text": "kilitledim.",
+   "start": 91.12,
+   "end": 92.0,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 92.32
+  },
+  {
+   "text": "Dışarıdan",
+   "start": 92.32,
+   "end": 92.72,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 92.8
+  },
+  {
+   "text": "annemin",
+   "start": 92.8,
+   "end": 93.12,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 93.2
+  },
+  {
+   "text": "sesi",
+   "start": 93.2,
+   "end": 93.36,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 93.4
+  },
+  {
+   "text": "geliyordu.",
+   "start": 93.4,
+   "end": 94.2,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 94.48
+  },
+  {
+   "text": "Açmadım.",
+   "start": 94.48,
+   "end": 95.32,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 95.6
+  },
+  {
+   "text": "Bir",
+   "start": 95.6,
+   "end": 95.68,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 95.72
+  },
+  {
+   "text": "süre",
+   "start": 95.72,
+   "end": 95.92,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 96.0
+  },
+  {
+   "text": "sonra",
+   "start": 96.0,
+   "end": 96.16,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 96.24
+  },
+  {
+   "text": "ses",
+   "start": 96.24,
+   "end": 96.4,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 96.48
+  },
+  {
+   "text": "kesildi.",
+   "start": 96.48,
+   "end": 97.16,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 97.52
+  },
+  {
+   "text": "Tam",
+   "start": 97.52,
+   "end": 97.68,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 97.76
+  },
+  {
+   "text": "kurtulduğumu",
+   "start": 97.76,
+   "end": 98.4,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 98.453
+  },
+  {
+   "text": "düşünürken,",
+   "start": 98.453,
+   "end": 99.44,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 99.52
+  },
+  {
+   "text": "nefesini",
+   "start": 99.52,
+   "end": 99.92,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 100.0
+  },
+  {
+   "text": "başımın",
+   "start": 100.0,
+   "end": 100.32,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 100.36
+  },
+  {
+   "text": "üzerinde",
+   "start": 100.36,
+   "end": 100.72,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 100.76
+  },
+  {
+   "text": "hissettim.",
+   "start": 100.76,
+   "end": 101.52,
+   "clip": "s7",
+   "red": false,
+   "creature": false,
+   "show_until": 101.97
+  },
+  {
+   "text": "Kapıyı",
+   "start": 102.06,
+   "end": 102.46,
+   "clip": "m3",
+   "red": false,
+   "creature": true,
+   "show_until": 102.54
+  },
+  {
+   "text": "açmana",
+   "start": 102.54,
+   "end": 102.94,
+   "clip": "m3",
+   "red": false,
+   "creature": true,
+   "show_until": 103.02
+  },
+  {
+   "text": "gerek",
+   "start": 103.02,
+   "end": 103.34,
+   "clip": "m3",
+   "red": false,
+   "creature": true,
+   "show_until": 103.42
+  },
+  {
+   "text": "yok…",
+   "start": 103.42,
+   "end": 103.9,
+   "clip": "m3",
+   "red": false,
+   "creature": true,
+   "show_until": 104.35
+  },
+  {
+   "text": "Nasıl",
+   "start": 109.76,
+   "end": 110.0,
+   "clip": "s8",
+   "red": false,
+   "creature": false,
+   "show_until": 110.08
+  },
+  {
+   "text": "kurtulduğumu",
+   "start": 110.08,
+   "end": 110.72,
+   "clip": "s8",
+   "red": false,
+   "creature": false,
+   "show_until": 110.8
+  },
+  {
+   "text": "hatırlamıyorum.",
+   "start": 110.8,
+   "end": 111.6,
+   "clip": "s8",
+   "red": false,
+   "creature": false,
+   "show_until": 112.05
+  },
+  {
+   "text": "Ama",
+   "start": 112.16,
+   "end": 112.4,
+   "clip": "s8",
+   "red": false,
+   "creature": false,
+   "show_until": 112.44
+  },
+  {
+   "text": "yıllardır",
+   "start": 112.44,
+   "end": 112.96,
+   "clip": "s8",
+   "red": false,
+   "creature": false,
+   "show_until": 113.04
+  },
+  {
+   "text": "her",
+   "start": 113.04,
+   "end": 113.2,
+   "clip": "s8",
+   "red": false,
+   "creature": false,
+   "show_until": 113.28
+  },
+  {
+   "text": "gece,",
+   "start": 113.28,
+   "end": 113.92,
+   "clip": "s8",
+   "red": false,
+   "creature": false,
+   "show_until": 113.96
+  },
+  {
+   "text": "penceremin",
+   "start": 113.96,
+   "end": 114.48,
+   "clip": "s8",
+   "red": false,
+   "creature": false,
+   "show_until": 114.533
+  },
+  {
+   "text": "dışından",
+   "start": 114.533,
+   "end": 114.96,
+   "clip": "s8",
+   "red": false,
+   "creature": false,
+   "show_until": 115.04
+  },
+  {
+   "text": "annemin",
+   "start": 115.04,
+   "end": 115.36,
+   "clip": "s8",
+   "red": false,
+   "creature": false,
+   "show_until": 115.44
+  },
+  {
+   "text": "sesini",
+   "start": 115.44,
+   "end": 115.76,
+   "clip": "s8",
+   "red": false,
+   "creature": false,
+   "show_until": 115.84
+  },
+  {
+   "text": "duyuyorum.",
+   "start": 115.84,
+   "end": 116.32,
+   "clip": "s8",
+   "red": false,
+   "creature": false,
+   "show_until": 116.77
+  },
+  {
+   "text": "Ve",
+   "start": 116.8,
+   "end": 116.88,
+   "clip": "s8",
+   "red": false,
+   "creature": false,
+   "show_until": 116.96
+  },
+  {
+   "text": "annem",
+   "start": 116.96,
+   "end": 117.36,
+   "clip": "s8",
+   "red": false,
+   "creature": false,
+   "show_until": 117.44
+  },
+  {
+   "text": "hâlâ",
+   "start": 117.44,
+   "end": 117.92,
+   "clip": "s8",
+   "red": false,
+   "creature": false,
+   "show_until": 118.0
+  },
+  {
+   "text": "ölü.",
+   "start": 118.0,
+   "end": 118.64,
+   "clip": "s8",
+   "red": true,
+   "creature": false,
+   "show_until": 119.09
+  },
+  {
+   "text": "Peki,",
+   "start": 119.76,
+   "end": 120.28,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 120.48
+  },
+  {
+   "text": "siz",
+   "start": 120.48,
+   "end": 120.64,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 120.72
+  },
+  {
+   "text": "daha",
+   "start": 120.72,
+   "end": 120.88,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 120.92
+  },
+  {
+   "text": "önce",
+   "start": 120.92,
+   "end": 121.12,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 121.16
+  },
+  {
+   "text": "Yalmavuz",
+   "start": 121.16,
+   "end": 121.6,
+   "clip": "s9",
+   "red": true,
+   "creature": false,
+   "show_until": 121.72
+  },
+  {
+   "text": "efsanesini",
+   "start": 121.72,
+   "end": 122.24,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 122.28
+  },
+  {
+   "text": "duydunuz",
+   "start": 122.28,
+   "end": 122.72,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 122.8
+  },
+  {
+   "text": "mu?",
+   "start": 122.8,
+   "end": 123.32,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 123.76
+  },
+  {
+   "text": "Bir",
+   "start": 123.76,
+   "end": 123.92,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 124.0
+  },
+  {
+   "text": "gece,",
+   "start": 124.0,
+   "end": 124.48,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 124.64
+  },
+  {
+   "text": "karanlığın",
+   "start": 124.64,
+   "end": 125.12,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 125.16
+  },
+  {
+   "text": "içinden",
+   "start": 125.16,
+   "end": 125.6,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 125.68
+  },
+  {
+   "text": "en",
+   "start": 125.68,
+   "end": 125.84,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 125.92
+  },
+  {
+   "text": "sevdiğiniz",
+   "start": 125.92,
+   "end": 126.4,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 126.48
+  },
+  {
+   "text": "insanın",
+   "start": 126.48,
+   "end": 126.8,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 126.88
+  },
+  {
+   "text": "sesi",
+   "start": 126.88,
+   "end": 127.04,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 127.08
+  },
+  {
+   "text": "gelseydi…",
+   "start": 127.08,
+   "end": 128.24,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 128.32
+  },
+  {
+   "text": "ona",
+   "start": 128.32,
+   "end": 128.48,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 128.56
+  },
+  {
+   "text": "doğru",
+   "start": 128.56,
+   "end": 128.72,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 128.76
+  },
+  {
+   "text": "gider",
+   "start": 128.76,
+   "end": 129.04,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 129.08
+  },
+  {
+   "text": "miydiniz?",
+   "start": 129.08,
+   "end": 129.72,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 130.0
+  },
+  {
+   "text": "Yoksa",
+   "start": 130.0,
+   "end": 130.32,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 130.4
+  },
+  {
+   "text": "arkanıza",
+   "start": 130.4,
+   "end": 130.88,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 130.92
+  },
+  {
+   "text": "bile",
+   "start": 130.92,
+   "end": 131.04,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 131.12
+  },
+  {
+   "text": "bakmadan",
+   "start": 131.12,
+   "end": 131.52,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 131.6
+  },
+  {
+   "text": "kaçar",
+   "start": 131.6,
+   "end": 131.92,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 131.96
+  },
+  {
+   "text": "mıydınız?",
+   "start": 131.96,
+   "end": 132.72,
+   "clip": "s9",
+   "red": false,
+   "creature": false,
+   "show_until": 133.16
+  },
+  {
+   "text": "Buraya",
+   "start": 133.16,
+   "end": 133.56,
+   "clip": "m4",
+   "red": false,
+   "creature": true,
+   "show_until": 133.64
+  },
+  {
+   "text": "gel…",
+   "start": 133.64,
+   "end": 134.36,
+   "clip": "m4",
+   "red": true,
+   "creature": true,
+   "show_until": 134.81
+  }
+ ]
+}
