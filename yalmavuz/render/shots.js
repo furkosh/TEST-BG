@@ -312,13 +312,13 @@ let SHOTS = [
     const sp = TL.words.filter((w) => w.clip === 'm2').some((w) => t >= w.start - 0.03 && t < w.end);
     const glow = [];
     // the other heads around, darker and out of focus
-    ctx.save(); ctx.filter = 'blur(6px)';
+    ctx.save();
     [[-330, 820, 2, 2.4, -0.4], [380, 760, 5, 2.3, 0.4], [-420, 1500, 1, 2.6, -0.2], [430, 1480, 6, 2.5, 0.3]].forEach(([dx, y, type, s, rt]) => {
       ctx.save(); ctx.translate(540 + dx + n1(t * 0.6, type) * 20, y + n1(t * 0.5, type + 9) * 14); ctx.rotate(rt); ctx.scale(s, s);
       drawYHead(ctx, type, { t, eyes: 1, light: [-0.5, 0.6], glow, hairLen: 1 }); ctx.restore();
     });
     ctx.restore();
-    ctx.fillStyle = 'rgba(0,0,0,0.55)'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = 'rgba(0,0,0,0.62)'; ctx.fillRect(0, 0, W, H);
     const z = 4.4 + (t - 66.2) * 0.12;
     ctx.save(); ctx.translate(540 + n1(t * 0.7, 3) * 10, 1290); ctx.rotate(0.08 + n1(t * 0.5, 4) * 0.04); ctx.scale(z, z);
     drawYHead(ctx, 0, { t, eyes: 1, mouth: sp ? 1 : 0, light: [-0.55, 0.65], glow, hairLen: 1.3, look: [0, 0.3] });
