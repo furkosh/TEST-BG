@@ -60,7 +60,7 @@ def autopan(x, rate, phase=0.0):
 
 def peak_t(x):
     k = int(0.01 * SR)
-    return float(np.argmax(np.convolve(np.abs(x).mean(1), np.ones(k) / k, "same"))) / SR
+    return float(np.argmax(signal.fftconvolve(np.abs(x).mean(1), np.ones(k) / k, "same"))) / SR
 
 
 def mimic(rel, stage, cut_to=None):
@@ -232,13 +232,14 @@ for a, b, bpm0, bpm1, g0, g1 in [(50.7, 51.75, 110, 110, -6, -6), (95.6, 103.9, 
         u = (tc - a) / (b - a); place(sfx, hb, tc, lerp := g0 + (g1 - g0) * u, 0, 0.05); tc += 60 / (bpm0 + (bpm1 - bpm0) * u)
 
 # ---------------- bus ----------------
-vg = np.convolve(np.abs(voice).mean(1), np.ones(int(0.3 * SR)) / (0.3 * SR), "same")
+vg = signal.fftconvolve(np.abs(voice).mean(1), np.ones(int(0.3 * SR)) / (0.3 * SR), "same")
 duck = (1 - 0.35 * np.clip(vg / (vg.max() * 0.25), 0, 1)).astype(np.float32)[:, None]
 mix = voice + cre + sfx * 0.85 * duck + amb * duck + music * duck
 # absolute silences: the voices stop (S4), the black cut after the ceiling (S8)
 for a, b, keep in [(50.68, 50.75, 0.0), (108.9, 109.55, 0.0)]:
     i0, i1 = int(a * SR), int(b * SR); mix[i0:i1] *= keep
 mix[int(134.7 * SR):] *= np.linspace(1, 0, N - int(134.7 * SR))[:, None]
+mix *= 0.97 / max(1.0, float(np.abs(mix).max()))       # headroom; loudnorm sets the final level
 out = os.path.join(ROOT, "out", "mix_raw.wav")
 subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ac", "2", "-ar", str(SR), "-i", "-", "-c:a", "pcm_f32le", out], input=mix.astype(np.float32).tobytes(), check=True)
 print("wrote", out, "peak", round(float(np.abs(mix).max()), 3), "voice rms dB", round(20 * np.log10(rms(voice)), 1))

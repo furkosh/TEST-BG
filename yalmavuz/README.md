@@ -8,8 +8,8 @@ Instagram Reels ve TikTok için dikey 9:16 formatında hazırlandı. Anlatım bi
 | Süre | 135,0 sn (120 sn hikâye + 15 sn kapanış) |
 | Çözünürlük | 1080 × 1920 (9:16) |
 | Kare hızı | 24 FPS (3240 kare) |
-| Video | H.264 High, yuv420p, faststart, ~2,8 Mbit/s (2 geçişli, < 50 MB) |
-| Ses | AAC 48 kHz stereo, −14 LUFS / −1,5 dBTP |
+| Video | H.264 High, yuv420p, faststart, ~2,8 Mbit/s (2 geçişli, 48,3 MiB) |
+| Ses | AAC 48 kHz stereo, ≈ −14,8 LUFS / −0,7 dBTP (ölçülen) |
 | Altyazı | Görüntüye gömülü, kelime kelime, seslendirmeyle senkron |
 
 Video: `out/yalmavuz_yedi_basli_kabus_9x16.mp4`
