@@ -9,3 +9,5 @@ audio/build/
 out/frames_story/
 out/build_story.log
 out/frames_intro/
+out/render_intro.log
+out/*.log
