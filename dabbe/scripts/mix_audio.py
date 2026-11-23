@@ -165,6 +165,53 @@ for a, b, bpm0, bpm1, g0, g1 in [(36.8, 45.0, 86, 126, -10, -3), (76.0, 81.55, 1
         u = (tc - a) / (b - a); place(sfx, hb, tc, g0 + (g1 - g0) * u, 0, 0.05); tc += 60 / (bpm0 + (bpm1 - bpm0) * u)
 place(sfx, filt(cut(br, 0, 6), "lowpass", 1200), 126.5, -6, 0.5, 1.0)                  # breath echoing in the dark
 
+
+# ---------------- second pass: thunder, wind, string-like cluster, reverse swells, heavy steps ----------------
+wind = filt(load(S + "wind_2.mp3"), "lowpass", 2500)
+wl = np.concatenate([wind, wind[::-1], wind, wind[::-1], wind])
+for a, b, g in [(14.6, 22.0, -15), (28.4, 45.2, -16), (59.6, 81.6, -18), (89.6, 101.6, -15), (101.6, 117.4, -22)]:
+    place(amb, cut(wl, (a * 0.7) % 20, (a * 0.7) % 20 + (b - a)), a, g, 0.6, 0.02 if b == 81.6 else 0.6)
+
+
+def thunder(t0, g=0.0, seed=0):
+    rr = np.random.default_rng(seed); n = int(5.5 * SR); tt = np.arange(n) / SR
+    body = filt(rr.standard_normal((n, 2)).astype(np.float32), "lowpass", 160, 2) * (np.minimum(1, tt / 0.35) * np.exp(-tt * 0.7))[:, None] * 2.5
+    crackle = filt(rr.standard_normal((n, 2)).astype(np.float32), "bandpass", [500, 3000], 2) * (np.exp(-tt * 3.5) * (rr.random(n) > 0.995))[:, None] * 6
+    place(amb, reverb((body + crackle).astype(np.float32), 2.5, 0.5, 1200, 30 + seed), t0, g, 0.05, 1.0)
+
+
+thunder(17.3, -6, 1); thunder(19.8, -3, 2)
+# string-like dissonant cluster: detuned saws through a slowly breathing low-pass, following the tension curve
+tc = np.arange(N) / SR
+cl = sum(((2 * ((f * tc + ph) % 1) - 1) * a) for f, a, ph in [(110.0, 0.4, 0.1), (116.5, 0.35, 0.4), (164.8, 0.3, 0.7), (174.6, 0.25, 0.2), (233.1, 0.15, 0.5)]).astype(np.float32)
+lfo = (0.5 + 0.5 * np.sin(2 * np.pi * 0.07 * tc)).astype(np.float32)
+clp = signal.sosfilt(signal.butter(2, 900, btype="lowpass", fs=SR, output="sos"), cl).astype(np.float32) * (0.4 + 0.6 * lfo)
+KS = [(0, 0), (2, 0.15), (11, 0.35), (13.9, 0.5), (14.0, 0), (26.5, 0), (28.4, 0.2), (39.8, 0.55), (41.9, 0.35), (50.2, 0.6), (55.2, 0.5), (61.0, 0.85),
+      (66.4, 1.0), (69.6, 0.7), (81.5, 1.0), (81.6, 0), (89.6, 0), (89.65, 0.8), (95.0, 0.5), (99.3, 0.3), (101.6, 0.0), (111.0, 0.2), (115.5, 0.4),
+      (117.35, 0.5), (117.4, 0), (120.5, 0), (122.0, 0.25), (128.0, 0.5), (132.3, 0.6), (132.4, 0), (135, 0)]
+gs = np.interp(tc, [k[0] for k in KS], [k[1] for k in KS]).astype(np.float32)
+cls = clp * gs * 0.05
+music[:, 0] += cls; music[:, 1] += np.roll(cls, int(0.017 * SR))
+
+
+def swell(dur=1.6, seed=0):
+    rr = np.random.default_rng(seed); n = int(dur * SR); tt = np.arange(n) / SR
+    x = filt(rr.standard_normal((n, 2)).astype(np.float32), "bandpass", [300, 6000], 2) * ((tt / dur) ** 3)[:, None] * 0.5
+    x += np.stack([np.sin(2 * np.pi * (80 + 300 * (tt / dur) ** 2) * tt)] * 2, 1).astype(np.float32) * ((tt / dur) ** 2)[:, None] * 0.12
+    return x.astype(np.float32)
+
+
+for hit_t, seed in [(EV["s1_eyes"] + 0.6, 1), (EV["s4_eyes"] + 0.2, 2), (EV["s5_limb"] + 0.85, 3), (EV["s5_rise"], 4), (73.8, 5), (EV["s7_up"], 6)]:
+    place(music, swell(1.6, seed), hit_t - 1.6, -6, 0.05, 0.01)
+# heavy footfalls / ground blows while it rises and lowers its head
+def thud(g=0.0):
+    n = int(0.9 * SR); tt = np.arange(n) / SR
+    x = np.tanh(3 * np.sin(2 * np.pi * (48 - 18 * tt) * tt) * np.exp(-tt * 5)).astype(np.float32)
+    return np.stack([x, x], 1) * db(g)
+for tb in [61.6, 62.9, 64.3, 65.4, 74.0, 75.2]:
+    place(sfx, thud(-2), tb, 0, 0.002, 0.3)
+    place(sfx, filt(cut(load(S + "rockfall.mp3"), 0.3, 1.6), "lowpass", 2500), tb + 0.05, -14, 0.01, 0.4)
+
 # ---------------- bus ----------------
 vg = signal.fftconvolve(np.abs(voice).mean(1), np.ones(int(0.3 * SR)) / (0.3 * SR), "same")
 duck = (1 - 0.35 * np.clip(vg / (vg.max() * 0.25), 0, 1)).astype(np.float32)[:, None]

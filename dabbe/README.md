@@ -7,31 +7,40 @@ temasından esinlenen kurgusal bir cümledir, ayetin metni değildir.
 
 | Özellik | Değer |
 |---|---|
-| Süre | 135,0 sn (120 sn hikâye + 15 sn izleyiciye kapanış) |
-| Çözünürlük | 1080 × 1920 (9:16), 24 FPS (3240 kare) |
-| Video | H.264 High, yuv420p, faststart, ~2,8 Mbit/s (2 geçişli, 48,3 MiB) |
-| Ses | AAC 48 kHz stereo, ölçülen ≈ −14,8 LUFS / −1,3 dBTP |
+| Süre | Giriş 12 sn · Film 135 sn (120 sn hikâye + 15 sn kapanış) · Birleşik 147 sn |
+| Çözünürlük | 1080 × 1920 (9:16), 24 FPS |
+| Video | H.264 High, yuv420p, faststart (2 geçişli, her dosya < 50 MB) |
+| Ses | AAC 48 kHz stereo, iki geçişli loudnorm (hedef −14 LUFS) |
 | Altyazı | Görüntüye gömülü, kelime kelime, seslendirmeyle senkron |
 
 Videolar:
-- `out/dabbetul_arz_topragin_altindan_9x16.mp4`: ana film (135 sn)
-- `out/dabbetul_arz_giris_12s_9x16.mp4`: giriş (12 sn). Seslendirme: "Dâbbetü'l-Arz… İslam inancında kıyamet alametlerinden biri
-  olarak kabul edilen ve yerden çıkacağı bildirilen canlıyı ifade eder." Çatlak toprak, "İSLAM İNANCINDA / KIYAMET ALAMETİ" kartı,
-  toprağın altında kayan gölge, "yerden çıkacağı" sözünde açılan yarık, "canlıyı" sözünde açılan kehribar gözler, kırmızı başlık.
-  Üretim: `scripts/build_intro_timeline.py`, `PAGE=intro.html DUR=12 node render/render_frames.cjs frames out/frames_intro`, `scripts/build_intro.sh`.
+- `out/dabbetul_arz_giris_12s_9x16.mp4`: giriş. "Dâbbetü'l-Arz… İslam inancında kıyamet alametlerinden biri olarak kabul edilen
+  ve yerden çıkacağı bildirilen canlıyı ifade eder."
+- `out/dabbetul_arz_topragin_altindan_9x16.mp4`: film (135 sn)
+- `out/dabbetul_arz_giris_ve_film_147s_9x16.mp4`: giriş + film art arda
 
-## Nasıl yapıldı
-- **Görüntü:** `render/` altındaki HTML Canvas kodu. Köy, orman yolu ve taş ocağı aynı 3B dünyada (`forest.js`, `world.js`):
-  yağmur, sis, taş evler, dağ sırtları, mağara ağzı, çatlayan zemin, el feneri konisi ve ışık hüzmesi.
-  Çatlak toprak, toprağın altına iniş ve mağara tüneli `ground.js` içinde; yaratık `dabbe.js` içinde.
-- **Mehmet:** 38 yaşında, kısa siyah saç, hafif sakal, koyu kahverengi mont, siyah pantolon, eski deri botlar, küçük metal el feneri.
-  Tam boy model `figure.js`, yakın plan yüz `man.js` + `sets.js`.
-- **Dâbbetü'l-Arz (özgün yorum):** ~4 m, toprakla kaplı taş dokulu deri, uzun ve güçlü ön uzuvlar, derin yarıklarla kaplı yüz,
-  soluk kehribar gözler. İlk sahnelerde yalnızca toprağın altındaki gölge ve gözler görünür.
-- **Seslendirme:** ElevenLabs `eleven_v4`. Anlatıcı "Göksel", yaratık "Serdar Tekyildiz" sesinden perdesi düşürülüp
-  alt oktav, yer altı uğultusu ve uzun mağara yankısıyla işlendi (`scripts/mix_audio.py`). Konuşurken müzik ve ortam sesleri tamamen kesilir.
-- **Altyazı:** ElevenLabs Scribe ile kelime düzeyinde zamanlama (`data/words_raw.json`, `scripts/build_timeline.py`).
-  Kırmızı vurgular: KIYAMET, DÂBBETÜ'L-ARZ, TOPRAK/TOPRAĞIN, YARATIK, KONUŞACAĞI, KAÇMAK, KAÇABİLİR, MEHMET.
+## Nasıl yapıldı (ikinci sürüm)
+
+- **Kabartma ışıklandırma:** Yaratığın yüzü, gövdesi ve yerden çıkan uzvu, çatlak toprak (`relief.js`, `dabbe2.js`, `ground.js`)
+  prosedürel yükseklik haritalarından üretilir: piksel başına normal, ortam kapanması (AO) ve ışığa doğru yürütülen gerçek gölge.
+  Her biri birkaç ışık geçişiyle (yerdeki fener, arkadan ay, sabah ışığı) önceden pişirilir; sahnede bu geçişler fenerin konumuna
+  göre düşümlü olarak karıştırılır.
+- **Yaratık (özgün yorum):** ~4 m, toprakla kaplı koyu taş deri, kaya plakaları, karnından sarkan kökler, uzun ve güçlü ön uzuvlar,
+  ağır pençeler; yüzü üç derin yarıkla bölünmüş, mührü kapalı bir ağız ve göz bebeği olmayan soluk kehribar gözler.
+  Konuşurken ağzı hareket etmez; yer onun sesiyle titrer.
+- **Gerçek karanlık:** Mağara sahnelerinde görüntü bir ışık haritasıyla çarpılır (`postfx.js`, `cave2.js`): el fenerinin düştüğü
+  yer dışında her yer karanlıktır. Hüzmede toz zerreleri, sarkıtlarda su parıltıları, mağara ağzından sızan soğuk ışık.
+- **Dış mekân:** Bulutların ardında ay, ufka doğru açılan sis, alçak sis bantları, ışığa yakın yerde parlayan yağmur, su birikintileri
+  ve sıçramalar, uzak şimşek. Köy: kiremit ve toprak damlı taş evler, ahşap hatıllar, tüten bacalar, rüzgârda sallanan sokak lambaları,
+  minare. Taş ocağı: basamaklı kesimler, mağaraya giden paslı raylar, devrik vagon.
+- **Mehmet:** 38 yaşında, kısa siyah saç, hafif sakal, koyu kahverengi mont, siyah pantolon, eski deri botlar, metal el feneri.
+  Kenar (rim) ışığı, soğukta görünen hızlanan nefes buharı, korkuyla büyüyen göz bebekleri, titreyen fener hüzmesi.
+- **Seslendirme:** ElevenLabs `eleven_v4`; anlatıcı "Göksel", yaratık sesi "Serdar Tekyildiz" sesinden perdesi düşürülüp alt oktav,
+  yer altı uğultusu ve uzun mağara yankısıyla işlendi. Konuşma sırasında müzik ve tüm ortam sesleri kesilir.
+- **Ses tasarımı:** yağmur, rüzgâr, uzak gök gürültüsü, susan köpekler, bardak titremesi, çakıl adımları, taş çatlaması, kaya düşmesi,
+  dev nefes, ağır darbeler; drone, uyumsuz yaylı dokusu, ters yükselen dalgalar, kalp atışı, "braam" vuruşları, kritik anlarda sessizlik.
+- **Altyazı:** ElevenLabs Scribe ile kelime düzeyinde zamanlama. Kırmızı vurgular: KIYAMET, DÂBBETÜ'L-ARZ, TOPRAK/TOPRAĞIN,
+  YARATIK, KONUŞACAĞI, KAÇMAK, KAÇABİLİR, MEHMET (girişte ayrıca YERDEN, CANLIYI).
 
 ## Sahne zaman çizelgesi (gerçek konuşma hızına göre)
 | Sahne | Aralık |
@@ -48,7 +57,10 @@ Videolar:
 
 ## Yeniden üretme
 ```bash
-python3 scripts/build_timeline.py
-node render/render_frames.cjs frames out/frames
-scripts/build_video.sh
+python3 scripts/build_timeline.py && python3 scripts/build_intro_timeline.py
+node render/render_frames.cjs frames out/frames                               # film, 3240 kare
+PAGE=intro.html DUR=12 node render/render_frames.cjs frames out/frames_intro  # giriş, 288 kare
+scripts/build_video.sh && scripts/build_intro.sh && scripts/build_combined.sh
 ```
+EOF
+tail -1 out/render.log 2>/dev/null; ls out/frames_intro | wc -l

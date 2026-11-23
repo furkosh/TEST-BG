@@ -2,7 +2,7 @@
 // World units are metres (X right, Y up, Z forward). Every shot places a camera in this one world.
 'use strict';
 const FOREST = {};
-const FOG_COL = [30, 38, 48];        // cold blue haze, rain
+const FOG_COL = [34, 45, 60];        // cold blue haze, rain
 const MOON_COL = [150, 176, 206];
 let LANT_COL = [255, 232, 196];     // flashlight: pale warm-white
 const BARK = [92, 86, 76];           // bark albedo
@@ -75,7 +75,10 @@ function buildForest() {
     const g2 = 70 + (v - 0.5) * 90 + l;
     return [g2 * 0.95, g2 * 0.9, g2 * 0.7, 255];
   });
-  FOREST.cloud = noiseCanvas(512, 256, 60, 5, 91, (v) => { const a = clamp((v - 0.42) * 2.4); return [70, 82, 96, a * 255]; });
+  FOREST.cloud = noiseCanvas(512, 256, 60, 5, 91, (v) => { const a = clamp((v - 0.45) * 2.2); return [16, 21, 30, a * 230]; });
+  FOREST.cloudLit = noiseCanvas(512, 256, 46, 5, 92, (v, i, j) => { const a = clamp((v - 0.5) * 2.6), e = clamp(1 - Math.abs(v - 0.53) * 18); return [40 + e * 70, 52 + e * 80, 70 + e * 95, a * 210]; });
+  FOREST.fogTex = noiseCanvas(256, 128, 40, 5, 93, (v, i, j) => { const a = clamp((v - 0.38) * 1.8) * Math.sin(Math.PI * j / 128); return [46, 58, 74, a * 255]; });
+  FOREST.puddles = Array.from({ length: 70 }, () => { const z = -6 + r() * 110; return { x: pathX(z) + (r() - 0.5) * 4, z, w: 0.6 + r() * 1.6, d: 0.3 + r() * 0.8, s: r() }; });
 }
 
 // ---------- camera ----------
@@ -115,38 +118,47 @@ function lightCol(alb, amb, li, fogF) {
 
 // ---------- sky ----------
 function drawSky(ctx, cam, o) {
-  const dark = o.skyDark || 0, t = o.t || 0;
+  const dark = o.skyDark || 0, t = o.t || 0, day = o.day || 0, lt = o.lightning || 0;
   const hz = proj(cam, cam.x + Math.sin(cam.yaw) * 1e4, cam.y, cam.z + Math.cos(cam.yaw) * 1e4)[1];
-  ctx.fillStyle = linGrad(ctx, 0, hz - 1600, 0, hz + 40, [[0, col(mix([10, 14, 24], [3, 4, 7], dark))], [0.7, col(mix([22, 34, 46], [6, 9, 13], dark))], [1, col(mix([44, 60, 68], [12, 16, 20], dark))]]);
+  // overcast night: lighter haze towards the horizon so ridges, roofs and people read as silhouettes
+  ctx.fillStyle = linGrad(ctx, 0, hz - 1700, 0, hz + 30, [[0, col(mix([6, 9, 15], [3, 4, 7], dark))], [0.55, col(mix([14, 21, 32], [7, 10, 15], dark))], [0.9, col(mix([30, 41, 56], [14, 19, 26], dark))], [1, col(mix([38, 50, 66], [18, 23, 30], dark))]]);
   ctx.fillRect(0, 0, W, H);
-  if (o.day > 0) { ctx.save(); ctx.globalAlpha = o.day; ctx.fillStyle = linGrad(ctx, 0, hz - 1500, 0, hz + 40, [[0, '#4a5a72'], [0.7, '#8c94a2'], [1, '#c8a890']]); ctx.fillRect(0, 0, W, H); ctx.restore(); }
-  if (o.moon !== false) {
-    // moon: fixed direction in the world (high, slightly left of the path direction)
-    const az = o.moonAz ?? -0.35, el = o.moonEl ?? 0.62;
-    const M = proj(cam, cam.x + Math.sin(az) * Math.cos(el) * 1e4, cam.y + Math.sin(el) * 1e4, cam.z + Math.cos(az) * Math.cos(el) * 1e4);
-    if (M[2] > 0) {
-      const ma = 1 - dark * 0.75;
-      radial(ctx, M[0], M[1], 520, [[0, `rgba(170,190,215,${0.32 * ma})`], [0.25, `rgba(110,135,165,${0.12 * ma})`], [1, 'rgba(60,80,110,0)']], 'screen');
-      ctx.save(); ctx.globalAlpha = ma; ctx.fillStyle = '#dfe7ef'; ctx.beginPath(); ctx.arc(M[0], M[1], 46, 0, TAU); ctx.fill();
-      ctx.globalCompositeOperation = 'multiply'; ctx.globalAlpha = 0.35 * ma; ctx.drawImage(TEX.plaster, M[0] - 46, M[1] - 46, 92, 92); ctx.restore();
-      ctx.save(); ctx.globalCompositeOperation = 'destination-over'; ctx.restore();
-      FOREST.moonScreen = M;
-    }
+  if (day > 0) { ctx.save(); ctx.globalAlpha = day; ctx.fillStyle = linGrad(ctx, 0, hz - 1500, 0, hz + 40, [[0, '#3e4c62'], [0.6, '#76808f'], [0.9, '#a7a39e'], [1, '#c3ab95']]); ctx.fillRect(0, 0, W, H); ctx.restore(); }
+  // the moon behind the clouds: a soft bright patch, no disc
+  const az = o.moonAz ?? -0.35, el = o.moonEl ?? 0.42;
+  const M = proj(cam, cam.x + Math.sin(az) * Math.cos(el) * 1e4, cam.y + Math.sin(el) * 1e4, cam.z + Math.cos(az) * Math.cos(el) * 1e4);
+  if (M[2] > 0 && o.moon !== false && day < 0.5) {
+    const ma = (1 - dark * 0.6) * (1 - day);
+    radial(ctx, M[0], M[1], 700, [[0, `rgba(150,170,200,${0.3 * ma})`], [0.3, `rgba(90,110,140,${0.12 * ma})`], [1, 'rgba(40,55,80,0)']], 'screen');
+    radial(ctx, M[0], M[1], 90, [[0, `rgba(220,230,245,${0.35 * ma})`], [1, 'rgba(200,215,235,0)']], 'screen');
+    FOREST.moonScreen = M;
   }
-  // drifting clouds (more and darker when the sky closes)
-  ctx.save(); ctx.globalAlpha = 0.55 + dark * 0.45;
-  const cw = 2400, ox = ((t * 14 + (o.cloudOff || 0)) % cw + cw) % cw;
-  for (let x = -ox; x < W; x += cw) { ctx.drawImage(FOREST.cloud, x, hz - 1500, cw, 1100); }
-  if (dark > 0) { ctx.globalAlpha = dark * 0.8; for (let x = -ox * 1.3 % cw; x < W; x += cw) ctx.drawImage(FOREST.cloud, x - 300, hz - 1300, cw, 1200); }
-  ctx.restore();
+  // two cloud decks drifting at different speeds; edges catch the moon
+  const cw = 2600;
+  for (let k = 0; k < 2; k++) {
+    const ox = ((t * (10 + k * 9) + (o.cloudOff || 0) + k * 700) % cw + cw) % cw;
+    ctx.save(); ctx.globalAlpha = (0.65 + dark * 0.3) * (k ? 0.8 : 1);
+    for (let x = -ox; x < W; x += cw) ctx.drawImage(k ? FOREST.cloudLit : FOREST.cloud, x, hz - 1650 + k * 260, cw, 1150 - k * 200);
+    ctx.restore();
+  }
+  // distant sheet lightning inside the clouds
+  if (lt > 0) { ctx.save(); ctx.globalCompositeOperation = 'screen'; radial(ctx, (o.lightX ?? 0.3) * W, hz - 900, 1400, [[0, `rgba(170,190,230,${0.55 * lt})`], [1, 'rgba(120,140,190,0)']]); ctx.fillStyle = `rgba(120,140,180,${0.12 * lt})`; ctx.fillRect(0, 0, W, hz); ctx.restore(); }
   return hz;
 }
-
+// low drifting mist (dark blue-grey, never a white wash), between y0 and y1
+function mistBand(ctx, t, a, y0, y1, speed = 14, scale = 5, seed = 0) {
+  if (a <= 0) return;
+  const s = 256 * scale, ox = ((t * speed + seed * 377) % s + s) % s;
+  ctx.save(); ctx.globalAlpha = a;
+  ctx.beginPath(); ctx.rect(0, y0, W, y1 - y0); ctx.clip();
+  for (let x = -ox; x < W; x += s) for (let y = y0 - ((seed * 131) % s); y < y1; y += s * 0.5) ctx.drawImage(FOREST.fogTex, x, y, s, s * 0.5);
+  ctx.restore();
+}
 // ---------- ground ----------
 function drawGround(ctx, cam, o, hz) {
   const L = o.lantern, t = o.t || 0, amb = o.amb ?? 0.16, fd = o.fogDist || 26;
   const top = Math.max(-10, hz);
-  ctx.fillStyle = linGrad(ctx, 0, top, 0, H, [[0, col(FOG_COL)], [0.06, col(mix([16, 20, 16], FOG_COL, 0.6))], [0.4, col([14, 17, 14])], [1, col([20, 22, 17])]]);
+  ctx.fillStyle = linGrad(ctx, 0, top, 0, H, [[0, col(FOG_COL)], [0.05, col(mix([20, 24, 26], FOG_COL, 0.55))], [0.35, col(mix([16, 18, 19], [70, 72, 70], (o.day || 0) * 0.6))], [1, col(mix([22, 22, 21], [92, 90, 84], (o.day || 0) * 0.6))]]);
   ctx.fillRect(0, top, W, H - top);
   // soil texture in perspective bands
   ctx.save(); ctx.globalCompositeOperation = 'multiply'; ctx.globalAlpha = 0.5;
@@ -191,6 +203,16 @@ function drawGround(ctx, cam, o, hz) {
       ctx.lineWidth = Math.max(0.7, 0.014 * s);
       for (let k = 0; k < 5; k++) { const a = -Math.PI / 2 + (k - 2) * 0.45 + Math.sin(t * 0.8 + g.a) * 0.05, L2 = 0.32 * s * g.s; ctx.beginPath(); ctx.moveTo(p[0], p[1]); ctx.quadraticCurveTo(p[0] + Math.cos(a) * L2 * 0.6, p[1] + Math.sin(a) * L2 * 0.8, p[0] + Math.cos(a) * L2 * 1.1, p[1] + Math.sin(a) * L2 * 0.6 + L2 * 0.2); ctx.stroke(); }
     } else { ctx.beginPath(); ctx.ellipse(p[0], p[1] - 0.03 * s, 0.12 * s * g.s, 0.07 * s * g.s, 0, 0, TAU); ctx.fill(); ctx.fillStyle = col(mix(c, [0, 0, 0], 0.5)); ctx.beginPath(); ctx.ellipse(p[0], p[1] - 0.01 * s, 0.12 * s * g.s, 0.03 * s * g.s, 0, 0, Math.PI); ctx.fill(); }
+  }
+  // wet ground: puddles mirror the sky and the flashlight, rain rings on them
+  if (o.rain !== 0) for (const Pd of FOREST.puddles) {
+    const c = proj(cam, Pd.x, 0, Pd.z); if (c[2] < 0.8 || c[2] > 30 || c[0] < -300 || c[0] > W + 300) continue;
+    const e = proj(cam, Pd.x + Pd.w, 0, Pd.z), f = proj(cam, Pd.x, 0, Pd.z + Pd.d), rx = Math.abs(e[0] - c[0]), ry = Math.max(2, Math.abs(f[1] - c[1]));
+    const li = lanternAt(L, Pd.x, 0.3, Pd.z), ff = fogK(c[2], o.fogDist || 26);
+    ctx.fillStyle = col(mix([26, 33, 44], [200, 205, 205], clamp(li * 0.5 + (o.day || 0) * 0.5)), 0.85 * (1 - ff)); ctx.beginPath(); ctx.ellipse(c[0], c[1], rx, ry, 0, 0, TAU); ctx.fill();
+    ctx.strokeStyle = `rgba(150,170,200,${0.25 * (1 - ff)})`; ctx.lineWidth = 1;
+    for (let k = 0; k < 3; k++) { const ph = ((t * 1.7 + Pd.s * 9 + k * 0.33) % 1); ctx.globalAlpha = 1 - ph; ctx.beginPath(); ctx.ellipse(c[0] + (hash2(k, Math.floor(t * 1.7 + Pd.s * 9 + k * 0.33), 3) - 0.5) * rx, c[1], rx * 0.25 * ph, ry * 0.25 * ph, 0, 0, TAU); ctx.stroke(); }
+    ctx.globalAlpha = 1;
   }
   // trunk shadows thrown by the lantern
   if (L && L.I > 0.05 && !L.dir) {
@@ -287,8 +309,8 @@ function renderForest(ctx, cam, o) {
   if (o.afterSky) o.afterSky(ctx, cam);
   drawGround(ctx, cam, o, hz);
   // far haze band at the horizon
-  ctx.fillStyle = linGrad(ctx, 0, hz - 500, 0, hz + 120, [[0, col(FOG_COL, 0)], [0.7, col(FOG_COL, 0.55)], [1, col(FOG_COL, 0)]]);
-  ctx.fillRect(0, hz - 500, W, 620);
+  ctx.fillStyle = linGrad(ctx, 0, hz - 420, 0, hz + 140, [[0, col(FOG_COL, 0)], [0.75, col(FOG_COL, 0.7)], [1, col(FOG_COL, 0)]]);
+  ctx.fillRect(0, hz - 420, W, 560);
   const items = [];
   const cy = Math.cos(cam.yaw), sy = Math.sin(cam.yaw);
   for (const T of (o.trees || FOREST.trees)) {
@@ -306,10 +328,10 @@ function renderForest(ctx, cam, o) {
   const fogAt = [12, 24];
   let fi = 0;
   for (const it of items) {
-    while (fi < fogAt.length && it.d < fogAt[fi]) { drawFog(ctx, o.t + fi * 30, (o.fog ?? 0.12) * (fi ? 0.55 : 0.9), 10 + fi * 6, 4 + fi, fi + 3, hz - 900, hz + 500); fi++; }
+    while (fi < fogAt.length && it.d < fogAt[fi]) { mistBand(ctx, o.t + fi * 30, (o.fog ?? 0.12) * (fi ? 2.2 : 3.2), hz - 260 - fi * 120, hz + 380 + fi * 160, 10 + fi * 6, 4 + fi, fi + 3); fi++; }
     it.f();
   }
-  drawFog(ctx, o.t + 77, (o.fog ?? 0.12) * 0.35, 22, 6, 9, hz - 600, hz + 300);
+  mistBand(ctx, o.t + 77, (o.fog ?? 0.12) * 1.6, hz + 200, H, 22, 6, 9);
   return hz;
 }
 

@@ -97,7 +97,7 @@ function drawUnderground(ctx, t, o = {}) {
   ctx.fillStyle = `rgba(0,0,0,${0.55 + d * 0.3})`; ctx.fillRect(0, 0, W, H);
   // roots and stones streaming upward
   const r = mulberry32(3);
-  for (let i = 0; i < 40; i++) { const x = r() * W, y = ((r() * H - d * 3000 * (0.6 + r() * 0.8)) % H + H) % H, s = 6 + r() * 22; ctx.fillStyle = `rgba(${90 + r() * 40},${80 + r() * 30},${66 + r() * 20},0.6)`; ctx.beginPath(); ctx.ellipse(x, y, s, s * 0.7, r(), 0, TAU); ctx.fill(); }
+  for (let i = 0; i < 40; i++) { const x = r() * W, y = ((r() * H - d * 3000 * (0.6 + r() * 0.8)) % H + H) % H, s = 6 + r() * 22, gq = r(); ctx.fillStyle = `rgba(${70 + gq * 50},${62 + gq * 44},${52 + gq * 36},0.6)`; ctx.beginPath(); ctx.ellipse(x, y, s, s * 0.7, r(), 0, TAU); ctx.fill(); }
   ctx.restore();
   vignette(ctx, 0.95, 0.15);
 }
@@ -175,4 +175,93 @@ function drawCave(ctx, t, o = {}) {
   ctx.save(); ctx.globalCompositeOperation = 'screen'; ctx.filter = 'blur(30px)';
   radial(ctx, spot[0], spot[1], 420, [[0, `rgba(230,220,200,${0.1 * sI})`], [1, 'rgba(0,0,0,0)']]);
   ctx.restore();
+}
+
+// ---------- cracked earth, relief pass ----------
+// curled clay plates lit by a low moon (grazing light, long crack shadows) + a warm under-light variant
+function clayFn(w) {
+  return (i, j) => {
+    const x = i / w * 9, y = j / w * 9;
+    const wx = x + (fbm(x * 0.6, y * 0.6, 2, 81) - 0.5) * 0.9, wy = y + (fbm(x * 0.6 + 4, y * 0.6, 2, 82) - 0.5) * 0.9;
+    const [d1, d2, id] = cellN(wx, wy, 91);
+    const e = d2 - d1;
+    // plates: flat tops that curl up at the rim, deep dark gaps
+    let z = 0.25 + 0.25 * sstep(0.0, 0.12, e) + 0.12 * sstep(0.25, 0.05, e) * sstep(0.02, 0.06, e) + (id - 0.5) * 0.12;
+    if (e < 0.035) z = -0.6 + e * 6;
+    z += (fbm(x * 6, y * 6, 3, 83) - 0.5) * 0.06 + (fbm(x * 22, y * 22, 2, 84) - 0.5) * 0.03;
+    const k = 0.85 + 0.3 * fbm(x * 1.5, y * 1.5, 3, 85), gap = e < 0.035;
+    const c = gap ? [20, 16, 12] : [150 * k, 126 * k, 98 * k];
+    return [z * 40, 1, c[0], c[1], c[2]];
+  };
+}
+function buildClayRelief() {
+  GR.clayR = buildRelief(900, 900, clayFn(900), {
+    moon: { dir: [-0.9, -0.25, 0.22], col: [0.7, 0.82, 1.05], soft: 3 },
+    under: { dir: [0.2, 0.6, 0.6], col: [1.25, 1.05, 0.8], soft: 5 },
+  }, { bump: 1.2, ao1: 3, ao2: 10, aoK1: 0.03, aoK2: 0.012, soft: 3 });
+}
+// lit clay tile (moon + optional warm under-light) cached per frame into one canvas
+let CLAYC = null;
+function clayTile(moon, under) {
+  if (!CLAYC) CLAYC = makeCanvas(900, 900);
+  const x = CLAYC.getContext('2d'); x.setTransform(1, 0, 0, 1, 0, 0); x.globalCompositeOperation = 'source-over'; x.clearRect(0, 0, 900, 900);
+  drawRelief(x, GR.clayR, 0, 0, 900, 900, [['base', 0.1], ['moon', moon], ['under', under]]);
+  return CLAYC;
+}
+// o: {t, zoom, panY, moon, under, bulge:{k,x,y}, crackOpen, eyes, stones, shake, dust, face (0..1 face visible in the crack)}
+function drawEarth2(ctx, t, o = {}) {
+  const z = o.zoom || 1, py = o.panY || 0, q = quake(t, o.shake || 0);
+  const tile = clayTile(o.moon ?? 1.0, o.under ?? 0);
+  ctx.save();
+  ctx.fillStyle = '#07080a'; ctx.fillRect(0, 0, W, H);
+  ctx.translate(q.x, q.y); ctx.translate(W / 2, H / 2); ctx.rotate(q.r); ctx.translate(-W / 2, -H / 2);
+  // ground plane: tiled relief seen at a slant (uniform scale; the far part dissolves into haze)
+  const y0g = o.horizon ?? 420, sc = 1.25 * z, th = 900 * sc * 0.62, tw = 900 * sc;
+  const oy0 = ((py * sc * 0.62) % th + th) % th, ox0 = ((o.panX || 0) * sc % tw + tw) % tw;
+  for (let y = y0g - oy0 - th; y < H + th; y += th) for (let x = -ox0 - tw; x < W + tw; x += tw) ctx.drawImage(tile, x, y, tw + 1, th + 1);
+  // distance haze and the dark horizon
+  ctx.fillStyle = linGrad(ctx, 0, 0, 0, y0g + 420, [[0, '#05070b'], [0.62, 'rgba(14,19,28,1)'], [0.8, 'rgba(18,24,34,0.75)'], [1, 'rgba(18,24,34,0)']]); ctx.fillRect(-50, -50, W + 100, y0g + 470);
+  // something huge moves beneath: the surface swells and darkens along its back
+  const U = o.bulge;
+  if (U && U.k > 0) {
+    ctx.save(); ctx.globalCompositeOperation = 'multiply'; ctx.filter = 'blur(50px)';
+    ctx.fillStyle = `rgba(0,0,0,${0.85 * U.k})`; ctx.beginPath(); ctx.ellipse(U.x, U.y, 470, 210, -0.12, 0, TAU); ctx.fill();
+    ctx.restore();
+    ctx.save(); ctx.globalCompositeOperation = 'screen'; ctx.filter = 'blur(26px)';
+    ctx.fillStyle = `rgba(140,150,170,${0.14 * U.k})`; ctx.beginPath(); ctx.ellipse(U.x - 80, U.y - 150, 420, 50, -0.12, 0, TAU); ctx.fill(); ctx.restore();
+    // fresh cracks running along its back
+    ctx.save(); ctx.strokeStyle = '#020101'; ctx.lineCap = 'round';
+    const r = mulberry32(21);
+    for (let k = 0; k < 7; k++) { let x = U.x - 380 + r() * 200, y = U.y + (r() - 0.5) * 160, a = (r() - 0.5) * 0.5; ctx.lineWidth = (2 + r() * 6) * U.k; ctx.beginPath(); ctx.moveTo(x, y); for (let s = 0; s < 12 * U.k; s++) { a += (r() - 0.5) * 0.9; x += Math.cos(a) * 42; y += Math.sin(a) * 18; ctx.lineTo(x, y); } ctx.stroke(); }
+    ctx.restore();
+  }
+  // the wide fissure where it looks out
+  if (o.crackOpen > 0) {
+    const k = o.crackOpen, cx = o.cx || 540, cy = o.cy || 1180, hw = 470;
+    const top = [], bot = [];
+    for (let i = 0; i <= 26; i++) { const u = i / 26, x = cx - hw + u * hw * 2, s = Math.sin(u * Math.PI); top.push([x, cy - (14 + 90 * s) * k + n1(i * 1.3, 5) * 12 * s]); bot.push([x, cy + (10 + 55 * s) * k + n1(i * 1.7, 6) * 10 * s]); }
+    ctx.save(); ctx.beginPath(); ctx.moveTo(top[0][0], top[0][1]); for (const p of top) ctx.lineTo(p[0], p[1]); for (let i = bot.length - 1; i >= 0; i--) ctx.lineTo(bot[i][0], bot[i][1]); ctx.closePath();
+    ctx.fillStyle = '#010101'; ctx.fill(); ctx.clip();
+    if (o.face > 0) {                                     // its face, far below, barely lit by moonlight through the gap
+      drawDabbeFace2(ctx, cx, cy + 40, 560, { t, up: 0, rim: 0.0, top: 0.55 * o.face, amb: 0.03, eyes: 0, soil: 0 });
+      ctx.fillStyle = `rgba(0,0,0,${0.5})`; ctx.fillRect(cx - hw, cy - 200, hw * 2, 400);
+    }
+    ctx.restore();
+    // crumbling lips of the fissure, lit by the moon
+    ctx.strokeStyle = 'rgba(170,180,200,0.35)'; ctx.lineWidth = 3; ctx.beginPath(); top.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.stroke();
+    if (o.eyes > 0) dabbeEyes2(ctx, cx, cy + 8 - 0.15 * 280 * 0, 560 * 0.034, o.eyes, o.eyeGlow ?? 1, t);
+  }
+  // pebbles shaken loose
+  if (o.stones > 0) for (const S of GR.stones) {
+    const k = clamp((o.stones - S.t0 * 0.6) * 2.5), lift = k * (14 + S.s * 1.2) + Math.abs(n1(t * 11 + S.seed, 3)) * 8 * k;
+    if (k <= 0) continue;
+    const r = mulberry32(S.seed), pts = [];
+    for (let i = 0; i < 7; i++) { const a = i / 7 * TAU; pts.push([S.x + Math.cos(a + S.a) * S.s * (0.7 + r() * 0.5), S.y - lift + Math.sin(a + S.a) * S.s * 0.6 * (0.7 + r() * 0.5)]); }
+    ctx.fillStyle = `rgba(0,0,0,${0.6 * k})`; ctx.beginPath(); ctx.ellipse(S.x + 8, S.y + 4, S.s * 1.2, S.s * 0.38, 0, 0, TAU); ctx.fill();
+    poly(ctx, pts); ctx.fillStyle = 'rgb(62,58,53)'; ctx.fill();
+    ctx.fillStyle = linGrad(ctx, S.x - S.s, S.y - lift - S.s, S.x + S.s, S.y - lift + S.s, [[0, 'rgba(150,165,190,0.3)'], [0.5, 'rgba(0,0,0,0)'], [1, 'rgba(0,0,0,0.75)']]); ctx.fill();
+    ctx.fillStyle = `rgba(150,130,110,${0.5 * k})`; for (let i = 0; i < 5; i++) ctx.fillRect(S.x - S.s + hash2(i, S.seed, 1) * S.s * 2, S.y - lift + S.s * 0.4 + ((t * 90 + i * 13) % 34), 2, 2);
+  }
+  ctx.restore();
+  if (o.dust > 0) { const fx = FOREST.fogTex || TEX.fog; ctx.save(); ctx.globalAlpha = o.dust * 0.22; const s = 1024, ox = (t * 18) % s; for (let x = -ox; x < W; x += s) ctx.drawImage(fx, x, o.horizon ? o.horizon : 400, s, H); ctx.restore(); }
 }

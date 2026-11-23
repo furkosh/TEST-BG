@@ -67,7 +67,7 @@ function handRock(P, w, s, seed, splay = 0) {
 }
 
 // head path in head units (width ~2.0, centre 0,0); jaw at +0.6, crown at -0.75
-function headPath(P, seed) {
+function dabbeHeadPath(P, seed) {
   rockPath(P, [[-1.0, -0.2], [-0.85, -0.62], [-0.3, -0.78], [0.3, -0.8], [0.88, -0.6], [1.02, -0.18], [0.9, 0.3], [0.5, 0.62], [0, 0.7], [-0.5, 0.6], [-0.9, 0.3]], 0.03, seed);
 }
 function drawDabbeHeadDetail(g, o) {
@@ -110,7 +110,7 @@ function drawDabbe(ctx, x, y, s, o = {}) {
   g.strokeStyle = 'rgba(0,0,0,0.6)'; g.lineWidth = 0.02; g.stroke(P);
   // head
   g.save(); g.translate(J.head[0], J.head[1]); g.scale(0.62 * J.hs, 0.62 * J.hs);
-  const HP = new Path2D(); headPath(HP, 7);
+  const HP = new Path2D(); dabbeHeadPath(HP, 7);
   g.fillStyle = col(DAB.stone); g.fill(HP);
   g.save(); g.clip(HP); g.globalCompositeOperation = 'multiply'; g.drawImage(DAB.tex, -1.2, -1, 2.4, 2); g.globalCompositeOperation = 'source-over';
   drawDabbeHeadDetail(g, o); g.restore();
@@ -155,7 +155,7 @@ function drawDabbeFace(ctx, x, y, s, o = {}) {
   const N = new Path2D(); rockPath(N, [[-2.6, 0.2], [-1.2, -0.3], [1.2, -0.3], [2.6, 0.2], [2.8, 2.5], [-2.8, 2.5]], 0.08, 5);
   g.fillStyle = col(mix(DAB.stone, [0, 0, 0], 0.4)); g.fill(N);
   g.save(); g.clip(N); g.globalCompositeOperation = 'multiply'; g.drawImage(DAB.tex, -3, -0.5, 6, 3); g.restore();
-  const HP = new Path2D(); headPath(HP, 7);
+  const HP = new Path2D(); dabbeHeadPath(HP, 7);
   g.fillStyle = col(DAB.stone); g.fill(HP);
   g.save(); g.clip(HP); g.globalCompositeOperation = 'multiply'; g.drawImage(DAB.tex, -1.2, -1, 2.4, 2); g.globalCompositeOperation = 'source-over';
   drawDabbeHeadDetail(g, o); g.restore();

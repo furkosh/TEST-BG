@@ -7,7 +7,7 @@ const BUF = makeCanvas(W, H), BCTX = BUF.getContext('2d');
 window.ready = (async () => {
   await document.fonts.load('900 92px Inter');
   buildSharedTextures();
-  buildMan(); buildCreature(); buildForest(); buildFigure(); buildWorld(); buildGround(); buildDabbe(); buildSets();
+  buildMan(); buildCreature(); buildForest(); buildFigure(); buildWorld(); buildGround(); buildDabbe(); buildDabbe2(); buildClayRelief(); buildSets();
   return true;
 })();
 

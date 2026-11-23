@@ -49,6 +49,21 @@ music[:, 0] += dr * g * 0.32; music[:, 1] += np.roll(dr * g * 0.32, int(0.011 * 
 place(music, braam(3.0, 36.7), EV["eyes"] + 0.1, -4, 0.0, 0.8)
 hit = load(S + "hit_3.mp3"); place(sfx, hit, EV["title"][0] - peak_t(hit), -2, 0.0, 0.4)
 place(music, braam(1.2, 32.7), EV["title"][0], -4, 0.0, 0.4)
+
+# storm over the valley (lightning at 3.6 and 5.3 s), wind, a rising swell into the eyes
+def thunder(t0, g=0.0, seed=0):
+    rr = np.random.default_rng(seed); n = int(4.5 * SR); tt = np.arange(n) / SR
+    body = filt(rr.standard_normal((n, 2)).astype(np.float32), "lowpass", 160, 2) * (np.minimum(1, tt / 0.3) * np.exp(-tt * 0.8))[:, None] * 2.5
+    place(sfx, reverb(body.astype(np.float32), 2.0, 0.5, 1200, 30 + seed), t0, g, 0.05, 0.8)
+thunder(3.85, -4, 1); thunder(5.6, -8, 2)
+wind = filt(load(S + "wind_2.mp3"), "lowpass", 2500)
+place(sfx, cut(wind, 2, 8.5), 2.6, -16, 0.6, 1.0)
+rain = filt(load(S + "rain.mp3"), "lowpass", 8000, 2)
+place(sfx, cut(rain, 0, 3.6), 2.7, -14, 0.4, 0.5)
+n = int(1.5 * SR); tt = np.arange(n) / SR
+sw = filt(rng.standard_normal((n, 2)).astype(np.float32), "bandpass", [300, 6000], 2) * ((tt / 1.5) ** 3)[:, None] * 0.5
+place(music, sw, EV["eyes"] - 1.4, -6, 0.05, 0.01)
+
 mix = voice + sfx * 0.85 + music
 mix[int(10.75 * SR): int(10.94 * SR)] = 0                                   # one beat of absolute silence before the title
 mix[int(11.85 * SR):] *= np.linspace(1, 0, N - int(11.85 * SR))[:, None]

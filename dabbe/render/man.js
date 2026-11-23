@@ -5,7 +5,7 @@ const MAN = {};
 const LIGHTS = {
   moon:    { base: [112, 122, 138], sh: [22, 27, 38], hi: [190, 205, 225], lip: [92, 86, 98], shirt: [120, 130, 145], ang: -0.75 },
   morning: { base: [178, 156, 140], sh: [70, 58, 54], hi: [232, 220, 206], lip: [150, 104, 98], shirt: [200, 196, 186], ang: -0.6 },
-  flash:   { base: [150, 138, 124], sh: [14, 14, 17], hi: [246, 240, 228], lip: [120, 84, 80], shirt: [120, 110, 100], ang: 1.15 },
+  flash:   { base: [176, 150, 128], sh: [16, 13, 13], hi: [255, 244, 226], lip: [132, 86, 80], shirt: [120, 110, 100], ang: 1.3, fill: 0.62 },
   dawn:    { base: [150, 140, 134], sh: [40, 42, 52], hi: [210, 214, 226], lip: [130, 96, 96], shirt: [140, 140, 146], ang: -0.9 },
   lantern: { base: [172, 122, 88], sh: [26, 16, 12], hi: [255, 204, 146], lip: [140, 80, 64], shirt: [150, 120, 92], ang: 0.95 },
   dim:     { base: [96, 104, 118], sh: [12, 15, 22], hi: [170, 188, 212], lip: [80, 74, 84], shirt: [90, 96, 108], ang: -2.2 },
@@ -221,7 +221,8 @@ function drawManFace(ctx, o = {}) {
   headPath(ctx); ctx.fillStyle = col(L.base); ctx.fill();
   ctx.save(); headPath(ctx); ctx.clip();
   const la = L.ang, lx = Math.cos(la), ly = Math.sin(la);
-  ctx.fillStyle = linGrad(ctx, lx * 190, ly * 190, -lx * 190, -ly * 190, [[0, col(L.hi, 0.32)], [0.3, col(L.hi, 0.04)], [0.5, col(L.sh, 0.25)], [0.7, col(L.sh, 0.75)], [1, col(L.sh, 0.96)]]);
+  const fl = L.fill ?? 1;
+  ctx.fillStyle = linGrad(ctx, lx * 190, ly * 190, -lx * 190, -ly * 190, [[0, col(L.hi, 0.32)], [0.3, col(L.hi, 0.04)], [0.5, col(L.sh, 0.25 * fl)], [0.7, col(L.sh, 0.75 * fl)], [1, col(L.sh, 0.96 * fl)]]);
   ctx.fillRect(-200, -260, 400, 450);
   // skin texture (pores / painterly mottling)
   ctx.globalCompositeOperation = 'overlay'; ctx.globalAlpha = 0.5; ctx.drawImage(TEX.plaster, -180, -260, 360, 440);

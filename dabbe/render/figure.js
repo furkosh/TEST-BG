@@ -4,8 +4,8 @@
 const FIG = {
   coat: [74, 52, 36], coatDk: [38, 26, 18], trou: [24, 24, 28], boot: [70, 46, 30], skin: [176, 140, 116], hair: [16, 14, 13],
 };
-let FIGBUF = null, FIGX = null;
-function buildFigure() { FIGBUF = makeCanvas(W, H); FIGX = FIGBUF.getContext('2d'); }
+let FIGBUF = null, FIGX = null, RIMBUF = null, RIMX = null;
+function buildFigure() { FIGBUF = makeCanvas(W, H); FIGX = FIGBUF.getContext('2d'); RIMBUF = makeCanvas(W, H); RIMX = RIMBUF.getContext('2d'); }
 
 function ik(a, b, l1, l2, bend) {
   let dx = b[0] - a[0], dy = b[1] - a[1], d = Math.hypot(dx, dy);
@@ -102,6 +102,14 @@ function drawManFigure(ctx, x, y, s, J, o = {}) {
   g.save(); g.translate(x, y); g.scale(s * (o.flip ? -1 : 1), s);
   const lp = view === 'side' ? drawSide(g, J, o) : drawFrontBack(g, J, o, view === 'front');
   g.restore();
+  // rim light: the silhouette minus itself shifted away from the light leaves a thin lit edge
+  const rimA = o.rimA ?? 0.55;
+  if (rimA > 0) {
+    const rx = RIMX, rd = o.rimDir || [-1, -0.6], off = Math.max(1.5, s * 0.012);
+    rx.setTransform(1, 0, 0, 1, 0, 0); rx.globalCompositeOperation = 'source-over'; rx.clearRect(0, 0, W, H);
+    rx.drawImage(FIGBUF, 0, 0); rx.globalCompositeOperation = 'source-in'; rx.fillStyle = col(o.rimCol || [150, 175, 215]); rx.fillRect(0, 0, W, H);
+    rx.globalCompositeOperation = 'destination-out'; rx.drawImage(FIGBUF, -rd[0] * off, -rd[1] * off);
+  }
   // lighting on his figure: dark ambient, warm lantern pool around the lamp, cold rim
   const amb = o.amb ?? 0.2, li = o.li ?? 0;
   const lx = x + lp[0] * s * (o.flip ? -1 : 1), ly = y + lp[1] * s;
@@ -116,7 +124,12 @@ function drawManFigure(ctx, x, y, s, J, o = {}) {
   }
   if (o.fog) { g.globalCompositeOperation = 'source-atop'; g.fillStyle = col(FOG_COL, o.fog); g.fillRect(0, 0, W, H); }
   g.globalCompositeOperation = 'source-over';
-  ctx.save(); ctx.globalAlpha = o.alpha ?? 1; ctx.drawImage(FIGBUF, 0, 0); ctx.restore();
+  ctx.save(); ctx.globalAlpha = o.alpha ?? 1; ctx.drawImage(FIGBUF, 0, 0);
+  if (rimA > 0) { ctx.globalCompositeOperation = 'screen'; ctx.globalAlpha = (o.alpha ?? 1) * rimA * (1 - (o.fog || 0) * 0.6); ctx.drawImage(RIMBUF, 0, 0); }
+  ctx.restore();
+  // head position on screen (for breath vapour)
+  const hd = view === 'side' && J ? J.head : [0, -1.67];
+  FIG.headScreen = [x + hd[0] * s * (o.flip ? -1 : 1), y + hd[1] * s, s];
   // the lantern itself is drawn on top, unaffected by the darkening
   if (o.flash && !o.noLantern) drawFlashlight(ctx, lx, ly, s, o.flash);
   else if (o.lantern && (!J || J.lantern === 'hand') && !o.noLantern) drawLantern(ctx, lx, ly, s, o.lantern, t, o.flip);
@@ -325,7 +338,7 @@ function manActor(X, Z, J, o) {
       const p = proj(cam, X, 0, Z); if (p[2] < 0.3) return;
       const ff = fogK(p[2], o.fogDist || 26);
       const r = drawManFigure(ctx, p[0], p[1], p[3], J, Object.assign({}, o, { fog: (o.fog || 0) + ff * 0.85 }));
-      if (o.out) o.out.screen = r;
+      if (o.out) { o.out.screen = r; o.out.head = FIG.headScreen; }
     },
   };
 }
