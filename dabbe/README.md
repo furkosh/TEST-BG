@@ -13,7 +13,12 @@ temasından esinlenen kurgusal bir cümledir, ayetin metni değildir.
 | Ses | AAC 48 kHz stereo, ölçülen ≈ −14,8 LUFS / −1,3 dBTP |
 | Altyazı | Görüntüye gömülü, kelime kelime, seslendirmeyle senkron |
 
-Video: `out/dabbetul_arz_topragin_altindan_9x16.mp4`
+Videolar:
+- `out/dabbetul_arz_topragin_altindan_9x16.mp4`: ana film (135 sn)
+- `out/dabbetul_arz_giris_12s_9x16.mp4`: giriş (12 sn). Seslendirme: "Dâbbetü'l-Arz… İslam inancında kıyamet alametlerinden biri
+  olarak kabul edilen ve yerden çıkacağı bildirilen canlıyı ifade eder." Çatlak toprak, "İSLAM İNANCINDA / KIYAMET ALAMETİ" kartı,
+  toprağın altında kayan gölge, "yerden çıkacağı" sözünde açılan yarık, "canlıyı" sözünde açılan kehribar gözler, kırmızı başlık.
+  Üretim: `scripts/build_intro_timeline.py`, `PAGE=intro.html DUR=12 node render/render_frames.cjs frames out/frames_intro`, `scripts/build_intro.sh`.
 
 ## Nasıl yapıldı
 - **Görüntü:** `render/` altındaki HTML Canvas kodu. Köy, orman yolu ve taş ocağı aynı 3B dünyada (`forest.js`, `world.js`):
