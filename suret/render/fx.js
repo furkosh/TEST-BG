@@ -40,7 +40,7 @@ function laceMask(scale, ox = 0, oy = 0, band = null) {
     if (band) {    // the band's upper edge (face units): no lamp light above it
       g.globalCompositeOperation = 'destination-out';
       g.fillStyle = linGrad(g, 0, band[0] - 26, 0, band[0] + 18, [[0, 'rgba(0,0,0,1)'], [1, 'rgba(0,0,0,0)']]); g.fillRect(F.X0, F.Y0, F.w / F.k, band[0] + 18 - F.Y0);
-      g.fillStyle = linGrad(g, 0, 700, 0, 2200, [[0, 'rgba(0,0,0,0)'], [1, 'rgba(0,0,0,0.85)']]); g.fillRect(F.X0, 700, F.w / F.k, F.h / F.k);
+      g.fillStyle = linGrad(g, 0, 330, 0, 1300, [[0, 'rgba(0,0,0,0)'], [1, 'rgba(0,0,0,0.94)']]); g.fillRect(F.X0, 330, F.w / F.k, F.h / F.k);
       g.globalCompositeOperation = 'destination-in';
     }
   };
