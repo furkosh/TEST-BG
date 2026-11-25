@@ -1,0 +1,41 @@
+// Frame compositor: picks the active shot(s) for time t, handles cuts / dissolves, grain and subtitles.
+'use strict';
+const CANVAS = document.getElementById('c');
+const CTX = CANVAS.getContext('2d');
+const BUF = makeCanvas(W, H), BCTX = BUF.getContext('2d');
+
+window.ready = (async () => {
+  await document.fonts.load('900 92px Inter'); await document.fonts.load('700 30px Inter');
+  buildSharedTextures(); buildSky();
+  await loadBGs(); await loadFx();
+  return true;
+})();
+
+function resetCtx(ctx) {
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+  ctx.filter = 'none'; ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+}
+function drawShot(ctx, s, t) {
+  resetCtx(ctx); ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H); ctx.save();
+  s.f(ctx, t, t - s.a, clamp((t - s.a) / (s.b - s.a)));
+  ctx.restore(); resetCtx(ctx);
+}
+window.renderFrame = (t) => {
+  const ctx = CTX; resetCtx(ctx);
+  ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
+  const i = SHOTS.findIndex((s) => t >= s.a && t < s.b);
+  if (i >= 0) {
+    const s = SHOTS[i];
+    const x = s.x || 0;
+    if (x > 0 && i > 0 && t < s.a + x) {
+      drawShot(ctx, SHOTS[i - 1], t);
+      drawShot(BCTX, s, t);
+      ctx.globalAlpha = smooth(seg(t, s.a, s.a + x)); ctx.drawImage(BUF, 0, 0); resetCtx(ctx);
+    } else drawShot(ctx, s, t);
+    if (s.fin) fillBlack(ctx, 1 - smooth(seg(t, s.a, s.a + s.fin)));
+    if (s.fout) fillBlack(ctx, smooth(seg(t, s.b - s.fout, s.b)));
+  }
+  grain(ctx, t, 0.16);
+  if (window.OVERLAY) { resetCtx(ctx); window.OVERLAY(ctx, t); resetCtx(ctx); }
+  drawSubtitles(ctx, t);
+};
