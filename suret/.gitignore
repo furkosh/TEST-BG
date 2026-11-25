@@ -1,0 +1,5 @@
+out/frames/
+out/*.wav
+out/*.log
+out/x264*
+bake/__pycache__/

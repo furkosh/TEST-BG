@@ -1,0 +1,1867 @@
+{
+ "duration": 120.0,
+ "fps": 24,
+ "width": 1080,
+ "height": 1920,
+ "clips": {
+  "n1": {
+   "file": "audio/raw/n1.mp3",
+   "start": 1.2,
+   "voice": "narrator"
+  },
+  "w2": {
+   "file": "audio/raw/w2.mp3",
+   "start": 20.8,
+   "voice": "wife"
+  },
+  "w3": {
+   "file": "audio/raw/w3.mp3",
+   "start": 35.2,
+   "voice": "wife"
+  },
+  "w4": {
+   "file": "audio/raw/w4.mp3",
+   "start": 49.0,
+   "voice": "wife"
+  },
+  "w5": {
+   "file": "audio/raw/w5.mp3",
+   "start": 63.3,
+   "voice": "wife"
+  },
+  "w6": {
+   "file": "audio/raw/w6.mp3",
+   "start": 77.3,
+   "voice": "wife"
+  },
+  "w7": {
+   "file": "audio/raw/w7.mp3",
+   "start": 90.0,
+   "voice": "wife"
+  },
+  "n8": {
+   "file": "audio/raw/n8.mp3",
+   "start": 102.0,
+   "voice": "narrator"
+  }
+ },
+ "scenes": [
+  {
+   "id": 1,
+   "start": 0.0,
+   "end": 20.0
+  },
+  {
+   "id": 2,
+   "start": 20.0,
+   "end": 34.5
+  },
+  {
+   "id": 3,
+   "start": 34.5,
+   "end": 48.5
+  },
+  {
+   "id": 4,
+   "start": 48.5,
+   "end": 62.5
+  },
+  {
+   "id": 5,
+   "start": 62.5,
+   "end": 76.5
+  },
+  {
+   "id": 6,
+   "start": 76.5,
+   "end": 89.5
+  },
+  {
+   "id": 7,
+   "start": 89.5,
+   "end": 101.5
+  },
+  {
+   "id": 8,
+   "start": 101.5,
+   "end": 120.0
+  }
+ ],
+ "events": {
+  "card": [
+   1.3,
+   4.2
+  ],
+  "street": 4.4,
+  "window": 7.2,
+  "eyes1": 10.0,
+  "eyes1_open": 10.96,
+  "corr1": 11.9,
+  "sil": 13.3,
+  "eyes2": 15.5,
+  "husb1": 16.4,
+  "black1": 18.35,
+  "title": [
+   18.7,
+   19.9
+  ],
+  "wide2": 20.0,
+  "face2": 21.8,
+  "open2": 21.98,
+  "door2": 25.1,
+  "reveal2": 26.3,
+  "dbl2": 27.2,
+  "dblcu2": 30.5,
+  "react2": 32.2,
+  "look3": 34.5,
+  "husb3": 36.4,
+  "rack3": [
+   38.9,
+   39.8
+  ],
+  "dblcu3": 40.8,
+  "smile3": [
+   41.6,
+   42.8
+  ],
+  "scream3": 43.0,
+  "door3": 46.3,
+  "flick3": [
+   47.0,
+   47.6
+  ],
+  "sit4": 48.5,
+  "situp4": 49.0,
+  "shadow4": 52.0,
+  "kdoor4": 55.0,
+  "kopen4": [
+   55.4,
+   57.8
+  ],
+  "window4": 58.0,
+  "pack5": 62.5,
+  "look5": 65.9,
+  "corr5": 67.4,
+  "car5": 68.6,
+  "drive5": [
+   69.2,
+   72.2
+  ],
+  "win5": 72.0,
+  "shadow5": [
+   73.8,
+   75.6
+  ],
+  "back6": 76.5,
+  "card6": [
+   77.0,
+   79.8
+  ],
+  "door6": 80.4,
+  "dopen6": [
+   80.6,
+   82.4
+  ],
+  "face6": 82.9,
+  "close6": [
+   83.9,
+   84.7
+  ],
+  "flash6": 85.3,
+  "open6": 87.6,
+  "table7": 89.5,
+  "tears7": 92.9,
+  "news7": 95.3,
+  "news7b": 97.4,
+  "face7": 99.4,
+  "wide8": 101.5,
+  "appear8": [
+   113.6,
+   114.8
+  ],
+  "dbl8": 113.6,
+  "cu8": 116.3,
+  "scare8": 117.9,
+  "black8": 118.35,
+  "end8": [
+   118.9,
+   120.0
+  ]
+ },
+ "words": [
+  {
+   "text": "2016",
+   "start": 1.281,
+   "end": 1.921,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 2.001
+  },
+  {
+   "text": "yılında",
+   "start": 2.001,
+   "end": 2.481,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 2.721
+  },
+  {
+   "text": "Konya'nın",
+   "start": 2.721,
+   "end": 3.201,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 3.281
+  },
+  {
+   "text": "Ereğli",
+   "start": 3.281,
+   "end": 3.601,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 3.681
+  },
+  {
+   "text": "ilçesinde",
+   "start": 3.681,
+   "end": 4.161,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 4.201
+  },
+  {
+   "text": "bir",
+   "start": 4.201,
+   "end": 4.241,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 4.401
+  },
+  {
+   "text": "aile,",
+   "start": 4.401,
+   "end": 4.921,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 5.121
+  },
+  {
+   "text": "açıklamakta",
+   "start": 5.121,
+   "end": 5.761,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 5.841
+  },
+  {
+   "text": "güçlük",
+   "start": 5.841,
+   "end": 6.161,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 6.281
+  },
+  {
+   "text": "çektiği",
+   "start": 6.281,
+   "end": 6.641,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 6.681
+  },
+  {
+   "text": "korkunç",
+   "start": 6.681,
+   "end": 7.081,
+   "clip": "n1",
+   "red": true,
+   "voice": "narrator",
+   "show_until": 7.121
+  },
+  {
+   "text": "olaylar",
+   "start": 7.121,
+   "end": 7.521,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 7.601
+  },
+  {
+   "text": "yaşadığını",
+   "start": 7.601,
+   "end": 8.001,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 8.121
+  },
+  {
+   "text": "iddia",
+   "start": 8.121,
+   "end": 8.321,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 8.481
+  },
+  {
+   "text": "etti.",
+   "start": 8.481,
+   "end": 9.081,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 9.521
+  },
+  {
+   "text": "Her",
+   "start": 9.521,
+   "end": 9.681,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 9.761
+  },
+  {
+   "text": "şey",
+   "start": 9.761,
+   "end": 10.161,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 10.201
+  },
+  {
+   "text": "bir",
+   "start": 10.201,
+   "end": 10.241,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 10.321
+  },
+  {
+   "text": "kadının",
+   "start": 10.321,
+   "end": 10.641,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 10.721
+  },
+  {
+   "text": "gece",
+   "start": 10.721,
+   "end": 10.881,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 10.961
+  },
+  {
+   "text": "uyandığında,",
+   "start": 10.961,
+   "end": 11.948,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 11.974
+  },
+  {
+   "text": "yatak",
+   "start": 11.974,
+   "end": 12.161,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 12.241
+  },
+  {
+   "text": "odasının",
+   "start": 12.241,
+   "end": 12.641,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 12.721
+  },
+  {
+   "text": "kapısında",
+   "start": 12.721,
+   "end": 13.201,
+   "clip": "n1",
+   "red": true,
+   "voice": "narrator",
+   "show_until": 13.241
+  },
+  {
+   "text": "kendi",
+   "start": 13.241,
+   "end": 13.521,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 13.561
+  },
+  {
+   "text": "eşini",
+   "start": 13.561,
+   "end": 13.841,
+   "clip": "n1",
+   "red": true,
+   "voice": "narrator",
+   "show_until": 13.868
+  },
+  {
+   "text": "görmesiyle",
+   "start": 13.868,
+   "end": 14.401,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 14.481
+  },
+  {
+   "text": "başladı.",
+   "start": 14.481,
+   "end": 15.441,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 15.521
+  },
+  {
+   "text": "Ancak",
+   "start": 15.521,
+   "end": 15.681,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 15.761
+  },
+  {
+   "text": "eşi…",
+   "start": 15.761,
+   "end": 16.361,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 16.401
+  },
+  {
+   "text": "zaten",
+   "start": 16.401,
+   "end": 16.801,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 16.908
+  },
+  {
+   "text": "hemen",
+   "start": 16.908,
+   "end": 17.121,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 17.201
+  },
+  {
+   "text": "yanında",
+   "start": 17.201,
+   "end": 17.441,
+   "clip": "n1",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 17.521
+  },
+  {
+   "text": "uyuyordu.",
+   "start": 17.521,
+   "end": 18.241,
+   "clip": "n1",
+   "red": true,
+   "voice": "narrator",
+   "show_until": 18.691
+  },
+  {
+   "text": "O",
+   "start": 20.881,
+   "end": 20.961,
+   "clip": "w2",
+   "red": false,
+   "voice": "wife",
+   "show_until": 21.041
+  },
+  {
+   "text": "gece",
+   "start": 21.041,
+   "end": 21.281,
+   "clip": "w2",
+   "red": false,
+   "voice": "wife",
+   "show_until": 21.521
+  },
+  {
+   "text": "birden",
+   "start": 21.521,
+   "end": 21.841,
+   "clip": "w2",
+   "red": false,
+   "voice": "wife",
+   "show_until": 21.921
+  },
+  {
+   "text": "uyandım.",
+   "start": 21.921,
+   "end": 22.721,
+   "clip": "w2",
+   "red": false,
+   "voice": "wife",
+   "show_until": 23.041
+  },
+  {
+   "text": "Neden",
+   "start": 23.041,
+   "end": 23.361,
+   "clip": "w2",
+   "red": false,
+   "voice": "wife",
+   "show_until": 23.441
+  },
+  {
+   "text": "uyandığımı",
+   "start": 23.441,
+   "end": 23.921,
+   "clip": "w2",
+   "red": false,
+   "voice": "wife",
+   "show_until": 24.041
+  },
+  {
+   "text": "bilmiyordum.",
+   "start": 24.041,
+   "end": 24.801,
+   "clip": "w2",
+   "red": false,
+   "voice": "wife",
+   "show_until": 25.121
+  },
+  {
+   "text": "Başımı",
+   "start": 25.121,
+   "end": 25.441,
+   "clip": "w2",
+   "red": false,
+   "voice": "wife",
+   "show_until": 25.481
+  },
+  {
+   "text": "kaldırıp",
+   "start": 25.481,
+   "end": 25.921,
+   "clip": "w2",
+   "red": false,
+   "voice": "wife",
+   "show_until": 26.001
+  },
+  {
+   "text": "kapıya",
+   "start": 26.001,
+   "end": 26.241,
+   "clip": "w2",
+   "red": true,
+   "voice": "wife",
+   "show_until": 26.321
+  },
+  {
+   "text": "baktığımda",
+   "start": 26.321,
+   "end": 27.121,
+   "clip": "w2",
+   "red": false,
+   "voice": "wife",
+   "show_until": 27.201
+  },
+  {
+   "text": "eşimin",
+   "start": 27.201,
+   "end": 27.521,
+   "clip": "w2",
+   "red": true,
+   "voice": "wife",
+   "show_until": 27.601
+  },
+  {
+   "text": "orada",
+   "start": 27.601,
+   "end": 27.841,
+   "clip": "w2",
+   "red": false,
+   "voice": "wife",
+   "show_until": 27.921
+  },
+  {
+   "text": "durduğunu",
+   "start": 27.921,
+   "end": 28.241,
+   "clip": "w2",
+   "red": false,
+   "voice": "wife",
+   "show_until": 28.321
+  },
+  {
+   "text": "gördüm.",
+   "start": 28.321,
+   "end": 29.201,
+   "clip": "w2",
+   "red": false,
+   "voice": "wife",
+   "show_until": 29.281
+  },
+  {
+   "text": "Hiç",
+   "start": 29.281,
+   "end": 29.441,
+   "clip": "w2",
+   "red": false,
+   "voice": "wife",
+   "show_until": 29.521
+  },
+  {
+   "text": "konuşmuyor…",
+   "start": 29.521,
+   "end": 30.481,
+   "clip": "w2",
+   "red": false,
+   "voice": "wife",
+   "show_until": 30.521
+  },
+  {
+   "text": "sadece",
+   "start": 30.521,
+   "end": 30.961,
+   "clip": "w2",
+   "red": false,
+   "voice": "wife",
+   "show_until": 31.001
+  },
+  {
+   "text": "bana",
+   "start": 31.001,
+   "end": 31.201,
+   "clip": "w2",
+   "red": false,
+   "voice": "wife",
+   "show_until": 31.281
+  },
+  {
+   "text": "bakıyordu.",
+   "start": 31.281,
+   "end": 32.001,
+   "clip": "w2",
+   "red": false,
+   "voice": "wife",
+   "show_until": 32.451
+  },
+  {
+   "text": "Yanıma",
+   "start": 35.36,
+   "end": 35.68,
+   "clip": "w3",
+   "red": false,
+   "voice": "wife",
+   "show_until": 35.76
+  },
+  {
+   "text": "baktığımda",
+   "start": 35.76,
+   "end": 36.4,
+   "clip": "w3",
+   "red": false,
+   "voice": "wife",
+   "show_until": 36.48
+  },
+  {
+   "text": "eşim",
+   "start": 36.48,
+   "end": 36.8,
+   "clip": "w3",
+   "red": false,
+   "voice": "wife",
+   "show_until": 36.84
+  },
+  {
+   "text": "hâlâ",
+   "start": 36.84,
+   "end": 37.2,
+   "clip": "w3",
+   "red": false,
+   "voice": "wife",
+   "show_until": 37.28
+  },
+  {
+   "text": "uyuyordu.",
+   "start": 37.28,
+   "end": 38.16,
+   "clip": "w3",
+   "red": true,
+   "voice": "wife",
+   "show_until": 38.48
+  },
+  {
+   "text": "Tekrar",
+   "start": 38.48,
+   "end": 38.8,
+   "clip": "w3",
+   "red": false,
+   "voice": "wife",
+   "show_until": 38.88
+  },
+  {
+   "text": "kapıya",
+   "start": 38.88,
+   "end": 39.12,
+   "clip": "w3",
+   "red": true,
+   "voice": "wife",
+   "show_until": 39.16
+  },
+  {
+   "text": "döndüm.",
+   "start": 39.16,
+   "end": 39.92,
+   "clip": "w3",
+   "red": false,
+   "voice": "wife",
+   "show_until": 40.0
+  },
+  {
+   "text": "Oradaki",
+   "start": 40.0,
+   "end": 40.32,
+   "clip": "w3",
+   "red": false,
+   "voice": "wife",
+   "show_until": 40.4
+  },
+  {
+   "text": "şey",
+   "start": 40.4,
+   "end": 40.56,
+   "clip": "w3",
+   "red": false,
+   "voice": "wife",
+   "show_until": 40.68
+  },
+  {
+   "text": "de",
+   "start": 40.68,
+   "end": 40.8,
+   "clip": "w3",
+   "red": false,
+   "voice": "wife",
+   "show_until": 40.84
+  },
+  {
+   "text": "eşimin",
+   "start": 40.84,
+   "end": 41.2,
+   "clip": "w3",
+   "red": true,
+   "voice": "wife",
+   "show_until": 41.24
+  },
+  {
+   "text": "yüzünü",
+   "start": 41.24,
+   "end": 41.6,
+   "clip": "w3",
+   "red": true,
+   "voice": "wife",
+   "show_until": 41.68
+  },
+  {
+   "text": "taşıyordu.",
+   "start": 41.68,
+   "end": 42.64,
+   "clip": "w3",
+   "red": false,
+   "voice": "wife",
+   "show_until": 42.72
+  },
+  {
+   "text": "Bağırmak",
+   "start": 42.72,
+   "end": 43.12,
+   "clip": "w3",
+   "red": false,
+   "voice": "wife",
+   "show_until": 43.28
+  },
+  {
+   "text": "istedim…",
+   "start": 43.28,
+   "end": 43.92,
+   "clip": "w3",
+   "red": false,
+   "voice": "wife",
+   "show_until": 44.04
+  },
+  {
+   "text": "ama",
+   "start": 44.04,
+   "end": 44.16,
+   "clip": "w3",
+   "red": false,
+   "voice": "wife",
+   "show_until": 44.24
+  },
+  {
+   "text": "korkudan",
+   "start": 44.24,
+   "end": 44.64,
+   "clip": "w3",
+   "red": false,
+   "voice": "wife",
+   "show_until": 44.72
+  },
+  {
+   "text": "sesimi",
+   "start": 44.72,
+   "end": 45.04,
+   "clip": "w3",
+   "red": false,
+   "voice": "wife",
+   "show_until": 45.12
+  },
+  {
+   "text": "çıkaramadım.",
+   "start": 45.12,
+   "end": 46.08,
+   "clip": "w3",
+   "red": false,
+   "voice": "wife",
+   "show_until": 46.53
+  },
+  {
+   "text": "O",
+   "start": 49.08,
+   "end": 49.16,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 49.24
+  },
+  {
+   "text": "geceden",
+   "start": 49.24,
+   "end": 49.72,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 49.8
+  },
+  {
+   "text": "sonra",
+   "start": 49.8,
+   "end": 50.12,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 50.2
+  },
+  {
+   "text": "hiçbir",
+   "start": 50.2,
+   "end": 50.6,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 50.653
+  },
+  {
+   "text": "şey",
+   "start": 50.653,
+   "end": 50.76,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 50.88
+  },
+  {
+   "text": "eskisi",
+   "start": 50.88,
+   "end": 51.16,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 51.2
+  },
+  {
+   "text": "gibi",
+   "start": 51.2,
+   "end": 51.4,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 51.48
+  },
+  {
+   "text": "olmadı.",
+   "start": 51.48,
+   "end": 52.4,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 52.44
+  },
+  {
+   "text": "Geceleri",
+   "start": 52.44,
+   "end": 52.84,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 52.88
+  },
+  {
+   "text": "uyumaktan",
+   "start": 52.88,
+   "end": 53.4,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 53.48
+  },
+  {
+   "text": "korkuyordum.",
+   "start": 53.48,
+   "end": 54.48,
+   "clip": "w4",
+   "red": true,
+   "voice": "wife",
+   "show_until": 54.52
+  },
+  {
+   "text": "Gözlerimi",
+   "start": 54.52,
+   "end": 55.0,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 55.08
+  },
+  {
+   "text": "her",
+   "start": 55.08,
+   "end": 55.16,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 55.24
+  },
+  {
+   "text": "kapattığımda",
+   "start": 55.24,
+   "end": 55.96,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 56.04
+  },
+  {
+   "text": "yeniden",
+   "start": 56.04,
+   "end": 56.36,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 56.48
+  },
+  {
+   "text": "karşıma",
+   "start": 56.48,
+   "end": 56.76,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 56.84
+  },
+  {
+   "text": "çıkacakmış",
+   "start": 56.84,
+   "end": 57.32,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 57.4
+  },
+  {
+   "text": "gibi",
+   "start": 57.4,
+   "end": 57.56,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 57.64
+  },
+  {
+   "text": "hissediyordum.",
+   "start": 57.64,
+   "end": 58.64,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 58.68
+  },
+  {
+   "text": "Kendi",
+   "start": 58.68,
+   "end": 58.92,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 59.0
+  },
+  {
+   "text": "evimde",
+   "start": 59.0,
+   "end": 59.32,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 59.373
+  },
+  {
+   "text": "bile",
+   "start": 59.373,
+   "end": 59.48,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 59.56
+  },
+  {
+   "text": "güvende",
+   "start": 59.56,
+   "end": 59.96,
+   "clip": "w4",
+   "red": true,
+   "voice": "wife",
+   "show_until": 60.0
+  },
+  {
+   "text": "değildim.",
+   "start": 60.0,
+   "end": 60.68,
+   "clip": "w4",
+   "red": false,
+   "voice": "wife",
+   "show_until": 61.13
+  },
+  {
+   "text": "Artık",
+   "start": 63.46,
+   "end": 63.86,
+   "clip": "w5",
+   "red": false,
+   "voice": "wife",
+   "show_until": 63.94
+  },
+  {
+   "text": "dayanacak",
+   "start": 63.94,
+   "end": 64.42,
+   "clip": "w5",
+   "red": false,
+   "voice": "wife",
+   "show_until": 64.5
+  },
+  {
+   "text": "gücüm",
+   "start": 64.5,
+   "end": 64.74,
+   "clip": "w5",
+   "red": false,
+   "voice": "wife",
+   "show_until": 64.78
+  },
+  {
+   "text": "kalmamıştı.",
+   "start": 64.78,
+   "end": 65.94,
+   "clip": "w5",
+   "red": false,
+   "voice": "wife",
+   "show_until": 66.26
+  },
+  {
+   "text": "Ailemle",
+   "start": 66.26,
+   "end": 66.74,
+   "clip": "w5",
+   "red": false,
+   "voice": "wife",
+   "show_until": 66.82
+  },
+  {
+   "text": "birlikte",
+   "start": 66.82,
+   "end": 67.38,
+   "clip": "w5",
+   "red": false,
+   "voice": "wife",
+   "show_until": 67.42
+  },
+  {
+   "text": "Ereğli'den",
+   "start": 67.42,
+   "end": 67.94,
+   "clip": "w5",
+   "red": false,
+   "voice": "wife",
+   "show_until": 68.02
+  },
+  {
+   "text": "ayrılıp",
+   "start": 68.02,
+   "end": 68.58,
+   "clip": "w5",
+   "red": false,
+   "voice": "wife",
+   "show_until": 68.66
+  },
+  {
+   "text": "Karaman'a",
+   "start": 68.66,
+   "end": 69.06,
+   "clip": "w5",
+   "red": false,
+   "voice": "wife",
+   "show_until": 69.18
+  },
+  {
+   "text": "taşındık.",
+   "start": 69.18,
+   "end": 70.02,
+   "clip": "w5",
+   "red": false,
+   "voice": "wife",
+   "show_until": 70.1
+  },
+  {
+   "text": "Her",
+   "start": 70.1,
+   "end": 70.26,
+   "clip": "w5",
+   "red": false,
+   "voice": "wife",
+   "show_until": 70.34
+  },
+  {
+   "text": "şeyi",
+   "start": 70.34,
+   "end": 70.5,
+   "clip": "w5",
+   "red": false,
+   "voice": "wife",
+   "show_until": 70.58
+  },
+  {
+   "text": "geride",
+   "start": 70.58,
+   "end": 70.82,
+   "clip": "w5",
+   "red": false,
+   "voice": "wife",
+   "show_until": 70.9
+  },
+  {
+   "text": "bırakırsak",
+   "start": 70.9,
+   "end": 71.7,
+   "clip": "w5",
+   "red": false,
+   "voice": "wife",
+   "show_until": 71.78
+  },
+  {
+   "text": "yaşadıklarımın",
+   "start": 71.78,
+   "end": 72.5,
+   "clip": "w5",
+   "red": false,
+   "voice": "wife",
+   "show_until": 72.58
+  },
+  {
+   "text": "sona",
+   "start": 72.58,
+   "end": 72.74,
+   "clip": "w5",
+   "red": false,
+   "voice": "wife",
+   "show_until": 72.86
+  },
+  {
+   "text": "ereceğini",
+   "start": 72.86,
+   "end": 73.22,
+   "clip": "w5",
+   "red": false,
+   "voice": "wife",
+   "show_until": 73.26
+  },
+  {
+   "text": "düşünüyordum.",
+   "start": 73.26,
+   "end": 74.26,
+   "clip": "w5",
+   "red": false,
+   "voice": "wife",
+   "show_until": 74.71
+  },
+  {
+   "text": "İki",
+   "start": 77.38,
+   "end": 77.62,
+   "clip": "w6",
+   "red": false,
+   "voice": "wife",
+   "show_until": 77.7
+  },
+  {
+   "text": "ay",
+   "start": 77.7,
+   "end": 77.78,
+   "clip": "w6",
+   "red": false,
+   "voice": "wife",
+   "show_until": 77.86
+  },
+  {
+   "text": "sonra",
+   "start": 77.86,
+   "end": 78.26,
+   "clip": "w6",
+   "red": false,
+   "voice": "wife",
+   "show_until": 78.58
+  },
+  {
+   "text": "yeniden",
+   "start": 78.58,
+   "end": 78.98,
+   "clip": "w6",
+   "red": false,
+   "voice": "wife",
+   "show_until": 79.06
+  },
+  {
+   "text": "Ereğli'ye",
+   "start": 79.06,
+   "end": 79.46,
+   "clip": "w6",
+   "red": false,
+   "voice": "wife",
+   "show_until": 79.54
+  },
+  {
+   "text": "döndük.",
+   "start": 79.54,
+   "end": 80.3,
+   "clip": "w6",
+   "red": false,
+   "voice": "wife",
+   "show_until": 80.58
+  },
+  {
+   "text": "Ama",
+   "start": 80.58,
+   "end": 80.74,
+   "clip": "w6",
+   "red": false,
+   "voice": "wife",
+   "show_until": 80.82
+  },
+  {
+   "text": "yaşadıklarımı",
+   "start": 80.82,
+   "end": 81.46,
+   "clip": "w6",
+   "red": false,
+   "voice": "wife",
+   "show_until": 81.5
+  },
+  {
+   "text": "unutamıyordum.",
+   "start": 81.5,
+   "end": 82.58,
+   "clip": "w6",
+   "red": false,
+   "voice": "wife",
+   "show_until": 82.9
+  },
+  {
+   "text": "Geceleri",
+   "start": 82.9,
+   "end": 83.3,
+   "clip": "w6",
+   "red": false,
+   "voice": "wife",
+   "show_until": 83.34
+  },
+  {
+   "text": "gözlerimi",
+   "start": 83.34,
+   "end": 83.78,
+   "clip": "w6",
+   "red": false,
+   "voice": "wife",
+   "show_until": 83.86
+  },
+  {
+   "text": "kapattığımda",
+   "start": 83.86,
+   "end": 84.74,
+   "clip": "w6",
+   "red": false,
+   "voice": "wife",
+   "show_until": 84.82
+  },
+  {
+   "text": "hâlâ",
+   "start": 84.82,
+   "end": 85.22,
+   "clip": "w6",
+   "red": false,
+   "voice": "wife",
+   "show_until": 85.26
+  },
+  {
+   "text": "o",
+   "start": 85.26,
+   "end": 85.3,
+   "clip": "w6",
+   "red": false,
+   "voice": "wife",
+   "show_until": 85.38
+  },
+  {
+   "text": "kapının",
+   "start": 85.38,
+   "end": 85.7,
+   "clip": "w6",
+   "red": false,
+   "voice": "wife",
+   "show_until": 85.78
+  },
+  {
+   "text": "önünde",
+   "start": 85.78,
+   "end": 86.1,
+   "clip": "w6",
+   "red": false,
+   "voice": "wife",
+   "show_until": 86.18
+  },
+  {
+   "text": "duran",
+   "start": 86.18,
+   "end": 86.34,
+   "clip": "w6",
+   "red": false,
+   "voice": "wife",
+   "show_until": 86.42
+  },
+  {
+   "text": "sureti",
+   "start": 86.42,
+   "end": 86.82,
+   "clip": "w6",
+   "red": true,
+   "voice": "wife",
+   "show_until": 86.86
+  },
+  {
+   "text": "görüyordum.",
+   "start": 86.86,
+   "end": 87.7,
+   "clip": "w6",
+   "red": false,
+   "voice": "wife",
+   "show_until": 88.15
+  },
+  {
+   "text": "Sonunda",
+   "start": 90.32,
+   "end": 90.72,
+   "clip": "w7",
+   "red": false,
+   "voice": "wife",
+   "show_until": 90.84
+  },
+  {
+   "text": "yardım",
+   "start": 90.84,
+   "end": 91.04,
+   "clip": "w7",
+   "red": false,
+   "voice": "wife",
+   "show_until": 91.12
+  },
+  {
+   "text": "istemeye",
+   "start": 91.12,
+   "end": 91.52,
+   "clip": "w7",
+   "red": false,
+   "voice": "wife",
+   "show_until": 91.6
+  },
+  {
+   "text": "karar",
+   "start": 91.6,
+   "end": 91.84,
+   "clip": "w7",
+   "red": false,
+   "voice": "wife",
+   "show_until": 91.92
+  },
+  {
+   "text": "verdik.",
+   "start": 91.92,
+   "end": 92.64,
+   "clip": "w7",
+   "red": false,
+   "voice": "wife",
+   "show_until": 92.88
+  },
+  {
+   "text": "Yaşadıklarımızı",
+   "start": 92.88,
+   "end": 93.64,
+   "clip": "w7",
+   "red": false,
+   "voice": "wife",
+   "show_until": 93.68
+  },
+  {
+   "text": "insanlara",
+   "start": 93.68,
+   "end": 94.24,
+   "clip": "w7",
+   "red": false,
+   "voice": "wife",
+   "show_until": 94.32
+  },
+  {
+   "text": "anlattık.",
+   "start": 94.32,
+   "end": 95.12,
+   "clip": "w7",
+   "red": false,
+   "voice": "wife",
+   "show_until": 95.44
+  },
+  {
+   "text": "Bazıları",
+   "start": 95.44,
+   "end": 95.92,
+   "clip": "w7",
+   "red": false,
+   "voice": "wife",
+   "show_until": 95.96
+  },
+  {
+   "text": "bize",
+   "start": 95.96,
+   "end": 96.16,
+   "clip": "w7",
+   "red": false,
+   "voice": "wife",
+   "show_until": 96.32
+  },
+  {
+   "text": "inanmadı.",
+   "start": 96.32,
+   "end": 97.08,
+   "clip": "w7",
+   "red": false,
+   "voice": "wife",
+   "show_until": 97.36
+  },
+  {
+   "text": "Ama",
+   "start": 97.36,
+   "end": 97.52,
+   "clip": "w7",
+   "red": false,
+   "voice": "wife",
+   "show_until": 97.6
+  },
+  {
+   "text": "ben…",
+   "start": 97.6,
+   "end": 98.08,
+   "clip": "w7",
+   "red": false,
+   "voice": "wife",
+   "show_until": 98.4
+  },
+  {
+   "text": "o",
+   "start": 98.4,
+   "end": 98.48,
+   "clip": "w7",
+   "red": false,
+   "voice": "wife",
+   "show_until": 98.56
+  },
+  {
+   "text": "gece",
+   "start": 98.56,
+   "end": 98.8,
+   "clip": "w7",
+   "red": false,
+   "voice": "wife",
+   "show_until": 98.84
+  },
+  {
+   "text": "gördüğüm",
+   "start": 98.84,
+   "end": 99.28,
+   "clip": "w7",
+   "red": false,
+   "voice": "wife",
+   "show_until": 99.36
+  },
+  {
+   "text": "şeyi",
+   "start": 99.36,
+   "end": 99.6,
+   "clip": "w7",
+   "red": false,
+   "voice": "wife",
+   "show_until": 99.68
+  },
+  {
+   "text": "hiçbir",
+   "start": 99.68,
+   "end": 100.0,
+   "clip": "w7",
+   "red": false,
+   "voice": "wife",
+   "show_until": 100.107
+  },
+  {
+   "text": "zaman",
+   "start": 100.107,
+   "end": 100.32,
+   "clip": "w7",
+   "red": false,
+   "voice": "wife",
+   "show_until": 100.36
+  },
+  {
+   "text": "unutamadım.",
+   "start": 100.36,
+   "end": 101.2,
+   "clip": "w7",
+   "red": true,
+   "voice": "wife",
+   "show_until": 101.65
+  },
+  {
+   "text": "Bu",
+   "start": 102.16,
+   "end": 102.24,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 102.32
+  },
+  {
+   "text": "olay",
+   "start": 102.32,
+   "end": 102.72,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 102.88
+  },
+  {
+   "text": "2016",
+   "start": 102.88,
+   "end": 103.52,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 103.56
+  },
+  {
+   "text": "yılında",
+   "start": 103.56,
+   "end": 103.84,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 103.92
+  },
+  {
+   "text": "haber",
+   "start": 103.92,
+   "end": 104.08,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 104.16
+  },
+  {
+   "text": "arşivlerine",
+   "start": 104.16,
+   "end": 104.72,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 104.8
+  },
+  {
+   "text": "geçti.",
+   "start": 104.8,
+   "end": 105.52,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 105.84
+  },
+  {
+   "text": "Ancak",
+   "start": 105.84,
+   "end": 106.08,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 106.16
+  },
+  {
+   "text": "yaşananların",
+   "start": 106.16,
+   "end": 106.72,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 106.8
+  },
+  {
+   "text": "gerçek",
+   "start": 106.8,
+   "end": 107.12,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 107.16
+  },
+  {
+   "text": "nedeni",
+   "start": 107.16,
+   "end": 107.6,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 107.68
+  },
+  {
+   "text": "hiçbir",
+   "start": 107.68,
+   "end": 108.0,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 108.08
+  },
+  {
+   "text": "zaman",
+   "start": 108.08,
+   "end": 108.32,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 108.4
+  },
+  {
+   "text": "kesin",
+   "start": 108.4,
+   "end": 108.64,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 108.72
+  },
+  {
+   "text": "olarak",
+   "start": 108.72,
+   "end": 108.96,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 109.04
+  },
+  {
+   "text": "ortaya",
+   "start": 109.04,
+   "end": 109.28,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 109.36
+  },
+  {
+   "text": "konulmadı.",
+   "start": 109.36,
+   "end": 110.12,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 110.472
+  },
+  {
+   "text": "Peki",
+   "start": 110.472,
+   "end": 110.72,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 110.76
+  },
+  {
+   "text": "siz,",
+   "start": 110.76,
+   "end": 111.32,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 111.52
+  },
+  {
+   "text": "eşiniz",
+   "start": 111.52,
+   "end": 111.92,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 112.0
+  },
+  {
+   "text": "hemen",
+   "start": 112.0,
+   "end": 112.24,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 112.32
+  },
+  {
+   "text": "yanınızda",
+   "start": 112.32,
+   "end": 112.72,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 112.8
+  },
+  {
+   "text": "uyurken",
+   "start": 112.8,
+   "end": 113.52,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 113.6
+  },
+  {
+   "text": "kapının",
+   "start": 113.6,
+   "end": 113.92,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 114.0
+  },
+  {
+   "text": "önünde",
+   "start": 114.0,
+   "end": 114.32,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 114.4
+  },
+  {
+   "text": "onun",
+   "start": 114.4,
+   "end": 114.56,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 114.6
+  },
+  {
+   "text": "bir",
+   "start": 114.6,
+   "end": 114.64,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 114.72
+  },
+  {
+   "text": "benzerini",
+   "start": 114.72,
+   "end": 115.2,
+   "clip": "n8",
+   "red": true,
+   "voice": "narrator",
+   "show_until": 115.24
+  },
+  {
+   "text": "görseydiniz…",
+   "start": 115.24,
+   "end": 116.24,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 116.56
+  },
+  {
+   "text": "Ne",
+   "start": 116.56,
+   "end": 116.64,
+   "clip": "n8",
+   "red": false,
+   "voice": "narrator",
+   "show_until": 116.693
+  },
+  {
+   "text": "yapardınız?",
+   "start": 116.693,
+   "end": 117.52,
+   "clip": "n8",
+   "red": true,
+   "voice": "narrator",
+   "show_until": 117.97
+  }
+ ]
+}
