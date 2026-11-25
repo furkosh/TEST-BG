@@ -11,8 +11,8 @@ hikâyeye bağlanan 30 saniyelik sinematik korku girişi (Instagram Reels / TikT
 |---|---|
 | Süre | 30 sn (logo / durağan açılış yok, ilk karede çığlık) |
 | Çözünürlük | 1080 × 1920 (9:16), 24 FPS |
-| Video | H.264 High, yuv420p, faststart, 2 geçişli |
-| Ses | AAC 48 kHz stereo, iki geçişli loudnorm (−14 LUFS, −1.5 dBTP) |
+| Video | H.264 High, yuv420p, faststart, 2 geçişli (31 MB) |
+| Ses | AAC 48 kHz stereo, iki geçişli loudnorm (hedef −14 LUFS; ölçülen −15,0 LUFS, tepe −1,3 dBFS) |
 | Altyazı | Görüntüye gömülü, kelime kelime, seslendirmeyle senkron; kilit kelimeler kırmızı |
 
 Video: `out/carsamba_karisi_giris_9x16.mp4`

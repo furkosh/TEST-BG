@@ -177,23 +177,24 @@ let SHOTS = [
     const stop = smooth(seg(t, at('steps_stop'), at('steps_stop') + 0.4));
     const turn = smooth(seg(t, at('steps_stop') + 0.35, at('appear') + 0.3));
     // the creature right behind her (over her left shoulder) — pops in on one frame
-    const [hx, hy, hs] = place('street_run', P, cam, [0.22 - turn * 0.03, 1.5, 4.0 - 0.72]);
+    const [hx0, hy, hs] = place('street_run', P, cam, [0.22, 1.5, 4.0 - 0.72]);
+    const hx = hx0 - turn * 55;
     const lunge = easeIn(clamp((t - at('scare')) / 0.14));
     if (t >= at('appear')) {
-      const [qx, qy, qs] = place('street_run', P, cam, [0.62, 1.58, 4.0 - 1.25]);
+      const [qx, qy, qs] = place('street_run', P, cam, [0.74, 1.6, 4.0 - 1.3]);
       const s2 = lerp(qs, hs * 2.7, lunge), x2 = lerp(qx, W * 0.5, lunge), y2 = lerp(qy, 980, lunge);
-      if (lunge < 0.999) blurred(ctx, lerp(3, 0, lunge), (g) => creature(g, x2, y2, s2, { long: true, rig: 'lantern', t, keyGain: 0.6, rimGain: 1.6, eye: 1 }));
+      if (lunge < 0.999) blurred(ctx, lerp(3, 0, lunge), (g) => creature(g, x2, y2, s2, { long: true, rig: 'lantern', t, keyGain: 1.25, rimGain: 2.6, eye: 1 }));
     }
     // her
     const pu = E.pounds.reduce((m, k) => Math.max(m, k > at('front') ? pulse(t, k, 0.25) : 0), 0);
     if (lunge < 0.6) kiz(ctx, hx, hy + pu * 14, hs * (1 + pu * 0.03), {
-      long: true, rig: 'moonV', rot: turn * 0.07, mouth: lerp(0.35, 0.15, stop) + 0.6 * smooth(seg(t, at('scare') - 0.1, at('scare'))),
-      wide: 0.6 + 0.4 * stop, raise: 0.6 + 0.4 * stop, knit: 0.5, look: [-0.95 * turn, 0.05], pupil: 0.25, keyGain: 1.0, rimGain: 0.9 * lampK + 0.2, wet: 0.6, t,
+      long: true, rig: 'moonV', rot: -turn * 0.13, mouth: lerp(0.35, 0.15, stop) + 0.6 * smooth(seg(t, at('scare') - 0.1, at('scare'))),
+      wide: 0.6 + 0.4 * stop, raise: 0.6 + 0.4 * stop, knit: 0.5, look: [-1.15 * turn, 0.05], pupil: 0.25, keyGain: 1.0, rimGain: 0.9 * lampK + 0.2, wet: 0.6, t,
     });
     if (t >= at('scare')) {
       const sc = lunge;
       creature(ctx, lerp(W * 0.42, W * 0.5, sc), lerp(1000, 980, sc), lerp(hs * 1.4, hs * 3.1, sc), { long: true, rig: 'lantern', t, keyGain: 0.6, rimGain: 1.6, eye: 1 });
-      flash(ctx, '#fff', pulse(t, at('scare'), 0.08) * 0.9, 'screen');
+      flash(ctx, '#fff', pulse(t, at('scare'), 0.06) * 0.55, 'screen');
       flash(ctx, '#9a0008', (t - at('scare')) * 2.2, 'multiply');
     }
     breathVapour(ctx, t, hx + 10, hy + 160 * hs, 1.6, 1, 0.12 * (1 - push * 0.5), hs * 1.2);
