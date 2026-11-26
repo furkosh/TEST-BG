@@ -69,7 +69,14 @@ export function setupOverlay(W, H) {
   el.canvas.width = cw; el.canvas.height = Math.round(hgt);
   const lw = drawLogo(ctx0, 0, 0, hgt * 0.86, 'dark', { measureOnly: true });
   const sc = Math.min(1, (cw * 0.98) / lw);
-  ctx0.save(); ctx0.translate((cw - lw * sc) / 2, hgt * 0.07); ctx0.scale(sc, sc); drawLogo(ctx0, 0, 0, hgt * 0.86, 'dark', { glow: 0.0 }); ctx0.restore();
+  // arkadan aydınlatma halesi: siyah hilal koyu zeminde de okunsun
+  const off = document.createElement('canvas'); off.width = cw; off.height = el.canvas.height;
+  const oc = off.getContext('2d');
+  oc.translate((cw - lw * sc) / 2, hgt * 0.07); oc.scale(sc, sc); drawLogo(oc, 0, 0, hgt * 0.86, 'dark');
+  oc.setTransform(1, 0, 0, 1, 0, 0); oc.globalCompositeOperation = 'source-in'; oc.fillStyle = '#e9e7e4'; oc.fillRect(0, 0, cw, off.height);
+  ctx0.save(); ctx0.filter = `blur(${Math.round(cw * 0.011)}px)`; ctx0.globalAlpha = 0.5; ctx0.drawImage(off, 0, 0); ctx0.drawImage(off, 0, 0); ctx0.restore();
+  ctx0.save(); ctx0.filter = `blur(${Math.round(cw * 0.003)}px)`; ctx0.globalAlpha = 0.6; ctx0.drawImage(off, 0, 0); ctx0.restore();
+  ctx0.save(); ctx0.translate((cw - lw * sc) / 2, hgt * 0.07); ctx0.scale(sc, sc); drawLogo(ctx0, 0, 0, hgt * 0.86, 'dark'); ctx0.restore();
   el.lastTitle = null; el.lastWord = null;
 }
 

@@ -7,6 +7,7 @@ import { buildCabin, buildCockpit, buildBuckle } from './interior.js';
 import { makePerson, walkAlong, SKIN, HAIR } from './people.js';
 import { lerp, clamp, smooth, smoother, easeInOut, easeOut, easeIn, range, rng } from './util.js';
 import { setupOverlay, updateOverlay } from './overlay.js';
+import { loadLogos } from './logo.js';
 
 const q = new URLSearchParams(location.search);
 const W = +(q.get('w') || 1920), H = Math.round(W * 9 / 16);
@@ -16,6 +17,7 @@ if (document.readyState !== 'complete') await new Promise(r => addEventListener(
 await Promise.all(['500', '600', '700', '800', '900'].map(w => document.fonts.load(`${w} 40px Montserrat`, 'ABCÇĞİÖŞÜabcçğıöşü')));
 for (const w of ['500', '700', '800', '900']) if (!document.fonts.check(`${w} 40px Montserrat`, 'CELEPOĞLU')) console.error('FONT YÜKLENEMEDİ', w);
 await document.fonts.load('600 40px "Playfair Display"', 'GRAND SALON');
+await loadLogos('/assets/');
 
 const E = createEngine(W, H, { samples: +(q.get('ms') ?? 0), shadow: 2048, fxaa: true });
 const { scene, camera } = E;
@@ -90,10 +92,18 @@ const V3 = (x, y, z) => new THREE.Vector3(x, y, z);
 function hand(t, a = 1, f = 1) { // el kamerası titreşimi
   return V3(Math.sin(t * 1.3 * f + 1) * 0.6 + Math.sin(t * 2.9 * f) * 0.3, Math.sin(t * 1.7 * f + 2) * 0.5 + Math.sin(t * 3.7 * f) * 0.2, Math.sin(t * 1.1 * f + 4) * 0.5).multiplyScalar(a);
 }
+const lastLook = new THREE.Vector3();
 function cam(pos, look, fov = 35, up = null) {
   camera.position.copy(pos); camera.fov = fov; camera.up.set(0, 1, 0); if (up) camera.up.copy(up);
-  camera.lookAt(look); camera.updateProjectionMatrix();
+  camera.lookAt(look); camera.updateProjectionMatrix(); lastLook.copy(look);
 }
+// alan derinliği ayarları (çekim başlangıç zamanına göre); odak varsayılanı: kameranın baktığı nokta
+const DOF = {
+  3.6: { a: 7, max: 12 }, 7.0: { a: 4, max: 8 }, 9.8: { a: 5, max: 10 }, 12.8: { a: 6, max: 12 }, 15.4: { a: 3.5, max: 10, focus: 2.4 },
+  18.0: { a: 4, max: 9 }, 24.6: { a: 10, max: 14 }, 28.0: { a: 4, max: 10, focus: 12 }, 31.2: { a: 4, max: 12, focus: 2.2 },
+  38.0: { a: 6, max: 12 }, 40.4: { a: 7, max: 14 }, 41.6: { a: 2.5, max: 10 }, 42.9: { a: 3.5, max: 12 },
+  44.2: { a: 5, max: 12 }, 47.2: { a: 5, max: 12 }, 50.0: { a: 3.5, max: 10 },
+};
 // yavaşlayarak durma: stop zamanında hız 0, ivme a
 function decelS(t, tStop, sStop, a) { if (t >= tStop) return sStop; const d = tStop - t; return sStop - 0.5 * a * d * d; }
 function placeVan(x, z, heading, s, extra = {}) {
@@ -103,11 +113,11 @@ function placeVan(x, z, heading, s, extra = {}) {
 
 // --- ışık ön ayarları ---
 const P = {
-  dawn: { sunElev: 2.5, sunAz: 100, turbidity: 9, rayleigh: 2.6, mie: 0.006, mieG: 0.88, sunColor: 0xffa860, sunInt: 2.4, hemiSky: 0xa8b8dc, hemiGround: 0x6a5240, hemiInt: 1.1, fog: 0xd2ad8c, fogDensity: 0.00018, exposure: 0.5, envInt: 1.0, temp: 0.35, sat: 1.06, contrast: 1.06, flare: 1.0, bloom: 0.45, bloomThr: 0.85, lift: [0.015, 0.01, 0.02] },
-  morning: { sunElev: 24, sunAz: 28, turbidity: 4, rayleigh: 1.6, mie: 0.004, mieG: 0.8, sunColor: 0xffe6c8, sunInt: 2.2, hemiSky: 0xbfd2f2, hemiGround: 0x7a6a56, hemiInt: 1.15, fog: 0xc9d6e2, fogDensity: 0.00014, exposure: 0.36, envInt: 1.0, temp: 0.2, sat: 1.04, contrast: 1.05, flare: 0.3, bloom: 0.3, bloomThr: 0.9 },
-  industrial: { sunElev: 36, sunAz: 22, turbidity: 3.5, rayleigh: 1.3, mie: 0.004, mieG: 0.8, sunColor: 0xfff1de, sunInt: 2.3, hemiSky: 0xbccde8, hemiGround: 0x6f6a62, hemiInt: 1.15, fog: 0xc6d3df, fogDensity: 0.00013, exposure: 0.33, envInt: 1.0, temp: -0.05, sat: 1.0, contrast: 1.1, flare: 0.0, bloom: 0.25, bloomThr: 0.92 },
-  golden: { sunElev: 7, sunAz: -78, turbidity: 7, rayleigh: 2.4, mie: 0.006, mieG: 0.86, sunColor: 0xffb46a, sunInt: 2.5, hemiSky: 0xa8b6d4, hemiGround: 0x6c5844, hemiInt: 1.05, fog: 0xd8b48e, fogDensity: 0.00018, exposure: 0.44, envInt: 1.0, temp: 0.45, sat: 1.08, contrast: 1.08, flare: 0.8, bloom: 0.45, bloomThr: 0.82 },
-  sunset: { sunElev: 3.2, sunAz: -95, turbidity: 10, rayleigh: 3.0, mie: 0.007, mieG: 0.9, sunColor: 0xff9a4a, sunInt: 2.7, hemiSky: 0x97a6c8, hemiGround: 0x5a4636, hemiInt: 1.0, fog: 0xd49a72, fogDensity: 0.0002, exposure: 0.5, envInt: 1.0, temp: 0.55, sat: 1.1, contrast: 1.1, flare: 1.1, bloom: 0.5, bloomThr: 0.8, lift: [0.02, 0.008, 0.012] },
+  dawn: { cloud: 0.6, cloudCover: 0.54, cloudSun: 0xffb27a, cloudShade: 0x6f6a82, cloudBright: 2.6,  sunElev: 2.5, sunAz: 100, turbidity: 9, rayleigh: 2.6, mie: 0.006, mieG: 0.88, sunColor: 0xffa860, sunInt: 2.4, hemiSky: 0xa8b8dc, hemiGround: 0x6a5240, hemiInt: 1.1, fog: 0xd2ad8c, fogDensity: 0.00018, exposure: 0.5, envInt: 1.0, temp: 0.35, sat: 1.06, contrast: 1.06, flare: 1.0, bloom: 0.45, bloomThr: 0.85, lift: [0.015, 0.01, 0.02] },
+  morning: { cloud: 0.55, cloudCover: 0.57, cloudSun: 0xffffff, cloudShade: 0xa3adbd, cloudBright: 2.4,  sunElev: 24, sunAz: 28, turbidity: 4, rayleigh: 1.6, mie: 0.004, mieG: 0.8, sunColor: 0xffe6c8, sunInt: 2.2, hemiSky: 0xbfd2f2, hemiGround: 0x7a6a56, hemiInt: 1.15, fog: 0xc9d6e2, fogDensity: 0.00014, exposure: 0.36, envInt: 1.0, temp: 0.2, sat: 1.04, contrast: 1.05, flare: 0.3, bloom: 0.3, bloomThr: 0.9 },
+  industrial: { cloud: 0.5, cloudCover: 0.58, cloudSun: 0xffffff, cloudShade: 0xa0aab8, cloudBright: 2.4,  sunElev: 36, sunAz: 22, turbidity: 3.5, rayleigh: 1.3, mie: 0.004, mieG: 0.8, sunColor: 0xfff1de, sunInt: 2.3, hemiSky: 0xbccde8, hemiGround: 0x6f6a62, hemiInt: 1.15, fog: 0xc6d3df, fogDensity: 0.00013, exposure: 0.33, envInt: 1.0, temp: -0.05, sat: 1.0, contrast: 1.1, flare: 0.0, bloom: 0.25, bloomThr: 0.92 },
+  golden: { cloud: 0.6, cloudCover: 0.55, cloudSun: 0xffbf86, cloudShade: 0x8c7f92, cloudBright: 2.4,  sunElev: 7, sunAz: -78, turbidity: 7, rayleigh: 2.4, mie: 0.006, mieG: 0.86, sunColor: 0xffb46a, sunInt: 2.5, hemiSky: 0xa8b6d4, hemiGround: 0x6c5844, hemiInt: 1.05, fog: 0xd8b48e, fogDensity: 0.00018, exposure: 0.44, envInt: 1.0, temp: 0.45, sat: 1.08, contrast: 1.08, flare: 0.8, bloom: 0.45, bloomThr: 0.82 },
+  sunset: { cloud: 0.65, cloudCover: 0.53, cloudSun: 0xff9d60, cloudShade: 0x6b5c74, cloudBright: 2.5,  sunElev: 3.2, sunAz: -95, turbidity: 10, rayleigh: 3.0, mie: 0.007, mieG: 0.9, sunColor: 0xff9a4a, sunInt: 2.7, hemiSky: 0x97a6c8, hemiGround: 0x5a4636, hemiInt: 1.0, fog: 0xd49a72, fogDensity: 0.0002, exposure: 0.5, envInt: 1.0, temp: 0.55, sat: 1.1, contrast: 1.1, flare: 1.1, bloom: 0.5, bloomThr: 0.8, lift: [0.02, 0.008, 0.012] },
   interiorDay: { sunElev: 28, sunAz: 15, turbidity: 3, rayleigh: 1.5, mie: 0.004, mieG: 0.8, sunColor: 0xfff0dc, sunInt: 3.2, hemiSky: 0xf2efe8, hemiGround: 0x6a6460, hemiInt: 0.9, fog: 0x000000, fogDensity: 0, exposure: 0.55, envInt: 0.6, skyVisible: false, background: 0x101214, temp: 0.15, sat: 1.0, contrast: 1.06, flare: 0, bloom: 0.35, bloomThr: 0.85 },
   interiorVip: { sunElev: 14, sunAz: 40, turbidity: 6, rayleigh: 2.2, mie: 0.005, mieG: 0.85, sunColor: 0xffb36a, sunInt: 3.0, hemiSky: 0xb09080, hemiGround: 0x3a2a26, hemiInt: 1.1, fog: 0x000000, fogDensity: 0, exposure: 0.8, envInt: 0.5, skyVisible: false, background: 0x0c0a09, temp: 0.4, sat: 1.08, contrast: 1.1, flare: 0, bloom: 0.55, bloomThr: 0.75 },
   macro: { sunElev: 18, sunAz: -60, turbidity: 6, rayleigh: 2, mie: 0.005, mieG: 0.85, sunColor: 0xffc58a, sunInt: 3.2, hemiSky: 0x8a8e98, hemiGround: 0x3a3430, hemiInt: 0.9, fog: 0x000000, fogDensity: 0, exposure: 0.6, envInt: 0.7, skyVisible: false, background: 0x0a0b0d, temp: 0.3, sat: 1.05, contrast: 1.12, flare: 0, bloom: 0.5, bloomThr: 0.8 },
@@ -401,18 +411,20 @@ function setup(t) {
   if (r.sunOverride) Object.assign(preset, r.sunOverride);
   E.setSky(preset);
   E.aimSun(r.focus || V3(0, 0, 0), r.shadow || 30, Math.max(60, (r.shadow || 30) * 3));
+  const d = DOF[s.t0];
+  s.dofNow = d ? { focus: d.focus ?? camera.position.distanceTo(lastLook), aperture: d.a * H / 1080, max: d.max * H / 1080 } : null;
   return s;
 }
 window.renderAt = (frame) => {
   const t = frame / FPS;
-  setup(t);
+  const shotNow = setup(t);
   // geçişler
   const cuts = [7.0, 18.0, 28.0, 38.0, 50.0];
   let flash = 0; for (const c of cuts) flash = Math.max(flash, Math.max(0, 1 - Math.abs(t - c) / 0.22) * 0.55);
   let fade = 0;
   if (t < 1.4) fade = 1 - smooth(t / 1.4);
   if (t > 55.0) fade = smooth((t - 55.0) / 0.75);
-  E.render(frame, { fade, flash });
+  E.render(frame, { fade, flash, dof: shotNow.dofNow });
   updateOverlay(t);
 };
 window.duration = DURATION; window.fps = FPS;

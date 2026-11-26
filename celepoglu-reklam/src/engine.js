@@ -7,6 +7,7 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 import { FXAAShader } from 'three/addons/shaders/FXAAShader.js';
+import { Pass, FullScreenQuad } from 'three/addons/postprocessing/Pass.js';
 import { canvasTex, fbm, noise2, rng, noiseFill } from './util.js';
 
 export function createEngine(W, H, opt = {}) {
@@ -27,16 +28,20 @@ export function createEngine(W, H, opt = {}) {
   const pmrem = new THREE.PMREMGenerator(renderer);
   const envCache = new Map();
 
+  const clouds = makeClouds(); scene.add(clouds);
   const sun = new THREE.DirectionalLight(0xffffff, 3);
-  sun.castShadow = true; sun.shadow.mapSize.set(opt.shadow ?? 2048, opt.shadow ?? 2048); sun.shadow.bias = -0.0002; sun.shadow.normalBias = 0.03;
+  sun.castShadow = true; sun.shadow.mapSize.set(opt.shadow ?? 2048, opt.shadow ?? 2048); sun.shadow.bias = -0.0002; sun.shadow.normalBias = 0.03; sun.shadow.radius = 2.2;
   scene.add(sun); scene.add(sun.target);
   const hemi = new THREE.HemisphereLight(0xbcd2ff, 0x5a4a3a, 0.6); scene.add(hemi);
 
   // post
-  const rt = new THREE.WebGLRenderTarget(W, H, { type: THREE.HalfFloatType, samples: opt.samples ?? 4 });
+  const rt = new THREE.WebGLRenderTarget(W, H, { type: THREE.HalfFloatType, samples: 0, depthTexture: new THREE.DepthTexture(W, H) });
   const composer = new EffectComposer(renderer, rt);
   composer.setPixelRatio(1); composer.setSize(W, H);
+  // iki tampon aynı derinlik dokusunu paylaşmasın (geri besleme döngüsü olur)
+  composer.renderTarget2.depthTexture = new THREE.DepthTexture(W, H);
   const renderPass = new RenderPass(scene, camera); composer.addPass(renderPass);
+  const dof = new DofPass(camera, W, H); composer.addPass(dof);
   const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), 0.35, 0.6, 0.92); if (opt.bloom !== false) { composer.addPass(bloom); bloom.setSize(Math.round(W / 2), Math.round(H / 2)); }
   composer.addPass(new OutputPass());
   if (opt.fxaa) { const fx = new ShaderPass(FXAAShader); fx.uniforms.resolution.value.set(1 / W, 1 / H); composer.addPass(fx); }
@@ -65,6 +70,10 @@ export function createEngine(W, H, opt = {}) {
     renderer.toneMappingExposure = p.exposure ?? 0.5;
     bloom.strength = p.bloom ?? 0.35; bloom.threshold = p.bloomThr ?? 0.92; bloom.radius = p.bloomRad ?? 0.6;
     sky.visible = p.skyVisible !== false;
+    clouds.visible = sky.visible && (p.cloud ?? 0) > 0;
+    const cu = clouds.material.uniforms;
+    cu.uDensity.value = p.cloud ?? 0; cu.uCover.value = p.cloudCover ?? 0.52; cu.uBright.value = p.cloudBright ?? 1.0;
+    cu.uSunCol.value.set(p.cloudSun ?? p.sunColor ?? 0xffffff); cu.uShadeCol.value.set(p.cloudShade ?? 0x8c96a8); cu.uSunDir.value.copy(sunDir);
     if (p.background !== undefined) scene.background = new THREE.Color(p.background); else scene.background = null;
     const g = grade.uniforms;
     g.uTemp.value = p.temp ?? 0; g.uTint.value = p.tint ?? 0; g.uSat.value = p.sat ?? 1; g.uContrast.value = p.contrast ?? 1;
@@ -89,9 +98,92 @@ export function createEngine(W, H, opt = {}) {
     g.uSunPos.value.set(_v.x * 0.5 + 0.5, _v.y * 0.5 + 0.5);
     const off = Math.max(0, Math.abs(_v.x) - 1, Math.abs(_v.y) - 1);
     g.uSunVis.value = facing > 0 ? (extras.sunVis ?? 1) * Math.min(1, facing * 3) * Math.max(0, 1 - off * 2.5) : 0;
+    clouds.position.set(camera.position.x, 1900, camera.position.z);
+    clouds.material.uniforms.uCamPos.value.copy(camera.position);
+    clouds.material.uniforms.uTime.value = frame / 60;
+    // alan derinliği
+    const d = extras.dof;
+    dof.enabled = !!d;
+    if (d) { const u = dof.material.uniforms; u.uFocus.value = d.focus; u.uAperture.value = d.aperture ?? 6; u.uMaxBlur.value = d.max ?? 12; }
     composer.render();
   }
   return { renderer, scene, camera, sky, sun, hemi, composer, bloom, grade, setSky, aimSun, render, sunDir };
+}
+
+// Alan derinliği (bokeh): derinlik dokusundan bulanıklık çemberi, altın açı spiraliyle toplama
+class DofPass extends Pass {
+  constructor(camera, W, H) {
+    super();
+    this.camera = camera; this.needsSwap = true; this.enabled = false;
+    this.material = new THREE.ShaderMaterial({
+      uniforms: { tColor: { value: null }, tDepth: { value: null }, uRes: { value: new THREE.Vector2(W, H) }, uNear: { value: 0.1 }, uFar: { value: 1000 }, uFocus: { value: 10 }, uAperture: { value: 6 }, uMaxBlur: { value: 12 } },
+      vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }`,
+      fragmentShader: `
+        uniform sampler2D tColor; uniform sampler2D tDepth; uniform vec2 uRes; uniform float uNear, uFar, uFocus, uAperture, uMaxBlur;
+        varying vec2 vUv;
+        float linD(vec2 uv){ float d = texture2D(tDepth, uv).x; float z = d * 2.0 - 1.0; return 2.0 * uNear * uFar / (uFar + uNear - z * (uFar - uNear)); }
+        float coc(float z){ return clamp(uAperture * abs(z - uFocus) / max(z, 0.001), 0.0, uMaxBlur); }
+        void main(){
+          vec2 px = 1.0 / uRes;
+          float cd = linD(vUv); float cs = coc(cd);
+          vec3 col = texture2D(tColor, vUv).rgb; float tot = 1.0;
+          float r = 1.0;
+          for (int i = 0; i < 44; i++) {
+            if (r > uMaxBlur) break;
+            float a = float(i) * 2.39996323;
+            vec2 tc = vUv + vec2(cos(a), sin(a)) * px * r;
+            vec3 sc = texture2D(tColor, tc).rgb;
+            float sd = linD(tc); float ss = coc(sd);
+            if (sd > cd) ss = clamp(ss, 0.0, cs * 2.0);
+            float m = smoothstep(r - 0.5, r + 0.5, ss);
+            col += mix(col / tot, sc, m); tot += 1.0;
+            r += 2.6 / r;
+          }
+          gl_FragColor = vec4(col / tot, 1.0);
+        }`,
+    });
+    this.fsQuad = new FullScreenQuad(this.material);
+  }
+  render(renderer, writeBuffer, readBuffer) {
+    const u = this.material.uniforms;
+    u.tColor.value = readBuffer.texture; u.tDepth.value = readBuffer.depthTexture;
+    u.uNear.value = this.camera.near; u.uFar.value = this.camera.far;
+    renderer.setRenderTarget(this.renderToScreen ? null : writeBuffer);
+    this.fsQuad.render(renderer);
+  }
+}
+
+// Gökyüzünde prosedürel bulut katmanı
+function makeClouds() {
+  const mat = new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false, side: THREE.DoubleSide, fog: false,
+    uniforms: { uSunDir: { value: new THREE.Vector3(0, 1, 0) }, uSunCol: { value: new THREE.Color(1, 1, 1) }, uShadeCol: { value: new THREE.Color(0.55, 0.6, 0.68) },
+      uCover: { value: 0.52 }, uDensity: { value: 0.8 }, uBright: { value: 1 }, uTime: { value: 0 }, uCamPos: { value: new THREE.Vector3() } },
+    vertexShader: `varying vec3 vWP; void main(){ vec4 w = modelMatrix * vec4(position, 1.0); vWP = w.xyz; gl_Position = projectionMatrix * viewMatrix * w; }`,
+    fragmentShader: `
+      uniform vec3 uSunDir, uSunCol, uShadeCol, uCamPos; uniform float uCover, uDensity, uBright, uTime;
+      varying vec3 vWP;
+      float h(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+      float vn(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
+        return mix(mix(h(i), h(i + vec2(1, 0)), f.x), mix(h(i + vec2(0, 1)), h(i + vec2(1, 1)), f.x), f.y); }
+      float fbm(vec2 p){ float s = 0.0, a = 0.5; for (int i = 0; i < 5; i++){ s += a * vn(p); p = p * 2.03 + vec2(1.7, 9.2); a *= 0.5; } return s; }
+      void main(){
+        vec2 p = vWP.xz * 0.00021 + vec2(uTime * 0.004, uTime * 0.0015);
+        float n = fbm(p) + 0.18 * fbm(p * 3.7 + 4.0);
+        float d = smoothstep(uCover, uCover + 0.22, n);
+        float thick = smoothstep(uCover + 0.05, uCover + 0.55, n);
+        float dist = length(vWP.xz - uCamPos.xz);
+        float fade = 1.0 - smoothstep(8000.0, 15500.0, dist);
+        vec3 v = normalize(vWP - uCamPos);
+        float toward = max(dot(v, normalize(uSunDir)), 0.0);
+        vec3 col = mix(uSunCol, uShadeCol, thick * 0.75);
+        col += uSunCol * (pow(toward, 8.0) * 2.2 + pow(toward, 2.0) * 0.4) * (1.0 - thick * 0.6);
+        gl_FragColor = vec4(col * uBright, d * fade * uDensity);
+      }`,
+  });
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(40000, 40000), mat);
+  m.rotation.x = -Math.PI / 2; m.renderOrder = -2; m.frustumCulled = false; m.name = 'clouds';
+  return m;
 }
 
 export const GradeShader = {

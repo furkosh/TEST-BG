@@ -89,8 +89,8 @@ export function buildCabin(variant = 'school') {
   }
   // VIP: masa / perde
   if (vip) {
-    const logoTex = canvasTex(512, 512, (ctx, w, h) => { ctx.fillStyle = '#111'; ctx.fillRect(0, 0, w, h); drawEmblem(ctx, w / 2, h / 2, w * 0.38); });
-    for (const s of seats) { const hr = new THREE.Mesh(new THREE.PlaneGeometry(0.11, 0.11), new THREE.MeshStandardMaterial({ map: logoTex, roughness: 0.4 })); hr.position.set(-0.385, 1.31, 0); hr.rotation.set(0, -Math.PI / 2, 0); hr.rotateX(0); s.add(hr); }
+    const logoTex = canvasTex(1024, 300, (ctx, w, h) => { ctx.fillStyle = '#111'; ctx.fillRect(0, 0, w, h); drawEmblem(ctx, w / 2, h / 2, w * 0.45); });
+    for (const s of seats) { const hr = new THREE.Mesh(new THREE.PlaneGeometry(0.26, 0.076), new THREE.MeshStandardMaterial({ map: logoTex, roughness: 0.4 })); hr.position.set(-0.385, 1.31, 0); hr.rotation.set(0, -Math.PI / 2, 0); hr.rotateX(0); s.add(hr); }
   }
   G.userData.seats = seats;
   return G;
@@ -120,9 +120,8 @@ export function buildCockpit() {
     dial(824, 200, 180, 180, 20, 'km/h');
     // orta ekran
     ctx.fillStyle = '#0b1118'; roundRect(ctx, 400, 60, 224, 280, 16); ctx.fill();
-    drawEmblem(ctx, 512, 160, 56);
-    ctx.fillStyle = '#e8eef4'; ctx.font = '800 26px Montserrat'; ctx.textAlign = 'center'; ctx.fillText('CELEPOĞLU', 512, 260);
-    ctx.fillStyle = '#ff3b3b'; ctx.font = '700 15px Montserrat'; ctx.fillText('İYİ YOLCULUKLAR', 512, 292);
+    drawEmblem(ctx, 512, 175, 104);
+    ctx.fillStyle = '#e8eef4'; ctx.font = '700 17px Montserrat'; ctx.textAlign = 'center'; ctx.letterSpacing = '3px'; ctx.fillText('İYİ YOLCULUKLAR', 512, 290);
   });
   const cluster = new THREE.Mesh(new THREE.PlaneGeometry(0.52, 0.203), new THREE.MeshStandardMaterial({ color: 0x000000, emissive: 0xffffff, emissiveMap: dialTex, emissiveIntensity: 2.2, roughness: 0.2 }));
   cluster.position.set(0.12, 1.12, -0.42); cluster.rotation.y = -Math.PI / 2; cluster.rotation.x = 0; G.add(cluster);

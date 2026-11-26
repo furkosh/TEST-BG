@@ -1,6 +1,7 @@
 // Stilize insan figürleri + basit iskelet animasyonu (yürüme, el sallama, çömelme, oturma)
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { blobTexture } from './util.js';
 
 const matCache = new Map();
 function mat(color, rough = 0.85, extra = {}) {
@@ -107,6 +108,9 @@ export function makePerson(o = {}) {
     const hand = mesh(new THREE.SphereGeometry(0.045 * s, 12, 10), skin); hand.scale.set(0.8, 1.15, 0.55); hand.position.y = -0.175 * h; elbow.add(hand);
     arms.push({ arm, elbow, hand });
   }
+  // ayak altı temas gölgesi
+  const blob = new THREE.Mesh(new THREE.PlaneGeometry(0.95 * s, 0.95 * s), new THREE.MeshBasicMaterial({ map: blobTexture(), transparent: true, depthWrite: false, opacity: 0.6 }));
+  blob.rotation.x = -Math.PI / 2; blob.position.y = 0.012; blob.renderOrder = -1; root.add(blob);
   root.traverse(m => { if (m.isMesh) m.frustumCulled = true; });
   const P = { root, hips, spine, legs, arms, headG, h, s,
     // poz: { walk: faz (radyan) ve genlik, wave, crouch, sit, lean, armFwd }

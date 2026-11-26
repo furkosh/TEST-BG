@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { toCreasedNormals } from 'three/addons/utils/BufferGeometryUtils.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { canvasTex, roundRect, blobTexture } from './util.js';
-import { drawLogo, drawEmblem, RED, BLACK } from './logo.js';
+import { drawLogo, logoAspect, RED, BLACK } from './logo.js';
 
 const BT = 0.06; // bevel
 const HALF = 0.97 + BT; // yan yüzey z
@@ -51,42 +51,33 @@ function liveryCanvas(side, { clearDoor = false } = {}) {
   });
   ctx.closePath(); ctx.clip();
   const pt = (x, y) => [X(x), Y(y)];
-  // kırmızı kavis (swoosh)
+  // arka bölümde logodaki kavisle uyumlu kırmızı / siyah kavisler
   ctx.fillStyle = RED;
   ctx.beginPath();
-  ctx.moveTo(...pt(0.35, 0.46));
-  ctx.quadraticCurveTo(...pt(-1.8, 0.50), ...pt(-3.40, 1.10));
-  ctx.lineTo(...pt(-3.40, 1.56));
-  ctx.quadraticCurveTo(...pt(-1.9, 0.93), ...pt(0.35, 0.46));
+  ctx.moveTo(...pt(-0.95, 0.46));
+  ctx.quadraticCurveTo(...pt(-2.4, 0.50), ...pt(-3.40, 1.00));
+  ctx.lineTo(...pt(-3.40, 1.45));
+  ctx.quadraticCurveTo(...pt(-2.5, 0.85), ...pt(-0.95, 0.46));
   ctx.closePath(); ctx.fill();
-  // siyah ince kavis
   ctx.fillStyle = BLACK;
   ctx.beginPath();
-  ctx.moveTo(...pt(0.15, 0.53));
-  ctx.quadraticCurveTo(...pt(-1.9, 1.00), ...pt(-3.40, 1.64));
-  ctx.lineTo(...pt(-3.40, 1.72));
-  ctx.quadraticCurveTo(...pt(-1.95, 1.06), ...pt(0.15, 0.53));
+  ctx.moveTo(...pt(-1.10, 0.50));
+  ctx.quadraticCurveTo(...pt(-2.55, 0.93), ...pt(-3.40, 1.53));
+  ctx.lineTo(...pt(-3.40, 1.61));
+  ctx.quadraticCurveTo(...pt(-2.58, 0.99), ...pt(-1.10, 0.50));
   ctx.closePath(); ctx.fill();
-  // ince kırmızı çizgi
   ctx.fillStyle = RED;
   ctx.beginPath();
-  ctx.moveTo(...pt(-0.2, 0.62));
-  ctx.quadraticCurveTo(...pt(-2.0, 1.12), ...pt(-3.40, 1.79));
-  ctx.lineTo(...pt(-3.40, 1.83));
-  ctx.quadraticCurveTo(...pt(-2.02, 1.15), ...pt(-0.2, 0.62));
+  ctx.moveTo(...pt(-1.25, 0.56));
+  ctx.quadraticCurveTo(...pt(-2.62, 1.04), ...pt(-3.40, 1.68));
+  ctx.lineTo(...pt(-3.40, 1.72));
+  ctx.quadraticCurveTo(...pt(-2.64, 1.07), ...pt(-1.25, 0.56));
   ctx.closePath(); ctx.fill();
-  // ana logo
-  const lh = 0.60 * PPM;
-  const lw = drawLogo(ctx, 0, 0, lh, 'light', { measureOnly: true });
-  const lx0 = Math.min(X(-0.95), X(1.33));
-  const lspan = Math.abs(X(1.33) - X(-0.95));
-  const scale = Math.min(1, lspan / lw);
-  ctx.save(); ctx.translate(lx0 + (lspan - lw * scale) / 2, Y(1.43)); ctx.scale(scale, scale);
-  drawLogo(ctx, 0, 0, lh, 'light'); ctx.restore();
-  // hizmet satırı
-  ctx.font = `600 ${0.085 * PPM}px Montserrat`; ctx.letterSpacing = `${0.02 * PPM}px`;
-  ctx.fillStyle = '#2a2c30'; ctx.textAlign = 'center';
-  ctx.fillText('ÖĞRENCİ • PERSONEL • VIP TAŞIMACILIK', (X(-0.95) + X(1.33)) / 2, Y(0.69));
+  // ana logo (firma logosu, büyük)
+  const lxa = -1.32, lxb = 1.68, ltop = 1.49;
+  const lhM = (lxb - lxa) / logoAspect();
+  drawLogo(ctx, Math.min(X(lxa), X(lxb)), Y(ltop), lhM * PPM, 'light');
+  ctx.textAlign = 'center';
   // web adresi (arka bölüm)
   ctx.font = `700 ${0.105 * PPM}px Montserrat`; ctx.letterSpacing = `${0.01 * PPM}px`;
   ctx.fillStyle = BLACK;
@@ -360,7 +351,7 @@ export function buildVan() {
   const plate = new THREE.Mesh(new THREE.PlaneGeometry(0.52, 0.11), plateMat); plate.rotation.y = Math.PI / 2; plate.position.set(3.484, 0.48, 0); body.add(plate);
   // kaput logosu
   {
-    const tex = canvasTex(1400, 330, (ctx, w, h) => { const lw = drawLogo(ctx, 0, 0, h * 0.9, 'light', { measureOnly: true }); drawLogo(ctx, (w - lw) / 2, h * 0.05, h * 0.9, 'light'); });
+    const tex = canvasTex(1400, 330, (ctx, w, h) => { const lw = drawLogo(ctx, 0, 0, h * 0.94, 'light', { measureOnly: true }); drawLogo(ctx, (w - lw) / 2, h * 0.03, h * 0.94, 'light'); });
     const g = new THREE.PlaneGeometry(0.84, 0.198);
     g.rotateY(Math.PI / 2);
     const ang = Math.atan2(0.977, 0.214);
@@ -397,8 +388,8 @@ export function buildVan() {
   rseam.rotation.y = -Math.PI / 2; rseam.position.set(rx, 1.55, 0); body.add(rseam);
   {
     const tex = canvasTex(1600, 520, (ctx, w, h) => {
-      const lw = drawLogo(ctx, 0, 0, h * 0.55, 'light', { measureOnly: true });
-      drawLogo(ctx, (w - lw) / 2, h * 0.04, h * 0.55, 'light');
+      const lw = drawLogo(ctx, 0, 0, h * 0.62, 'light', { measureOnly: true });
+      drawLogo(ctx, (w - lw) / 2, h * 0.02, h * 0.62, 'light');
       ctx.font = `700 ${h * 0.12}px Montserrat`; ctx.fillStyle = BLACK; ctx.textAlign = 'center';
       ctx.fillText('www.celepogluturizm.com', w / 2, h * 0.86);
     });

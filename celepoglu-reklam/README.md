@@ -7,8 +7,8 @@ Film, senaryodaki 6 sahneyi, seslendirmeyi, ekran yazılarını ve final logo ek
 |---|---|
 | Süre | 60 sn |
 | Çıktı | 3840×2160 (4K UHD), 16:9, 60 FPS, H.264 + AAC 320 kbps |
-| Render | 1600×900 @ 60 FPS (yazılımsal GPU) → 4K'ya lanczos + keskinleştirme ile ölçekleme |
-| Görsel stil | Stilize 3B animasyon (three.js): fiziksel tabanlı malzemeler, gerçek zamanlı gölgeler, atmosferik gökyüzü, bloom, lens flare, renk düzenleme, film greni |
+| Render | 1920×1080 (Full HD) @ 60 FPS (yazılımsal GPU) → 4K'ya lanczos + keskinleştirme ile ölçekleme |
+| Görsel stil | 3B animasyon (three.js): fiziksel tabanlı malzemeler, yumuşak gölgeler, atmosferik gökyüzü ve bulutlar, alan derinliği (bokeh), bloom, lens flare, renk düzenleme, film greni |
 | Ses | Türkçe erkek seslendirme (ElevenLabs, "Muhammet Yolcu – Derin, Sakin ve Tok"), prosedürel orkestral müzik, ses efektleri |
 
 ## Önemli notlar
@@ -17,8 +17,10 @@ Film, senaryodaki 6 sahneyi, seslendirmeyi, ekran yazılarını ve final logo ek
   stilize 3B animasyon olarak üretildi; insanlar yüzsüz, sade figürlerdir (bozuk yüz/parmak sorunu olmaması için bilinçli tercih).
   Ulusal TV kalitesinde fotogerçekçi sürüm için gerçek çekim ya da bir video üretim modeli gerekir; bu proje o çekimler için
   birebir zamanlanmış bir *animatik / kurgu referansı* olarak da kullanılabilir.
-* **Logo:** Firmanın gerçek logosu elimde olmadığı için kurumsal renklerde (kırmızı / beyaz / siyah) bir logo tasarlandı
-  (`src/logo.js`). Gerçek logo geldiğinde tek dosyada değiştirilebilir; araç kaplaması, kaput logosu, arka kapı ve final ekranı otomatik güncellenir.
+* **Logo:** Firmanın kendi logosu kullanılır (`assets/logo_orijinal.png`). `assets/logo_hazirla.py` iki sürüm üretir:
+  koyu zeminler ve final ekranı için orijinal renkler (`logo_koyu_zemin.png`), beyaz araç gövdesinde okunabilmesi için
+  "CELEPOĞLU" harfleri koyu grafit tonda (`logo_acik_zemin.png`). Logo dosyası değişirse betik yeniden çalıştırılır; araç
+  kaplaması, kaput, arka kapı, VIP koltuk başlıkları, kokpit ekranı ve final ekranı otomatik güncellenir.
 * **Araç:** Beyaz, yüksek tavanlı 19+1 minibüs modeli prosedürel olarak modellendi. Marka hakları nedeniyle ön ızgaradaki amblem
   yazısız mavi oval olarak bırakıldı; plaka yerine "CELEPOĞLU" yazılı plaka kullanıldı.
 * İletişim bilgileri (web sitesi, e-posta, İzmir / Tire) senaryodan alınmıştır.

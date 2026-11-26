@@ -1,6 +1,7 @@
 // Mekânlar: Tire şehir merkezi, servis durağı, OSB, davet mekânı, zeytinlik yolu, gün batımı yolu
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js';
 import { canvasTex, rng, fbm, noise2, noiseFill, roundRect } from './util.js';
 import { drawEmblem, drawLogo, RED } from './logo.js';
 
@@ -106,7 +107,7 @@ function facadeMaterial(kind = 'house', cell = [3.2, 3.0]) {
     sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nuniform sampler2D facadeMap; varying vec3 vLP; varying vec3 vLN;')
       .replace('#include <map_fragment>', `#include <map_fragment>
         if (abs(vLN.y) > 0.5) { diffuseColor.rgb *= vec3(0.80, 0.78, 0.75); }
-        else { vec2 fuv = abs(vLN.x) > 0.5 ? vLP.zy : vLP.xy; diffuseColor.rgb *= texture2D(facadeMap, fuv / vec2(${cell[0].toFixed(2)}, ${cell[1].toFixed(2)})).rgb; }`);
+        else { vec2 fuv = abs(vLN.x) > 0.5 ? vLP.zy : vLP.xy; diffuseColor.rgb *= texture2D(facadeMap, fuv / vec2(${cell[0].toFixed(2)}, ${cell[1].toFixed(2)})).rgb; diffuseColor.rgb *= mix(0.58, 1.0, smoothstep(0.0, 2.8, vLP.y)); }`);
   };
   return m;
 }
@@ -125,6 +126,30 @@ function instanced(geo, material, list, { color = null, cast = true } = {}) {
   return im;
 }
 
+// yapraklı taç materyali: dünya koordinatlı gürültü ile yaprak kümeleri, ışık-gölge kırılımı, taç altı karartma
+let _fol;
+function foliageMaterial() {
+  if (_fol) return _fol;
+  const m = new THREE.MeshLambertMaterial({ color: 0xffffff });
+  m.onBeforeCompile = (sh) => {
+    sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec3 vFP; varying float vLY;')
+      .replace('#include <begin_vertex>', '#include <begin_vertex>\n vFP = (modelMatrix * instanceMatrix * vec4(transformed, 1.0)).xyz; vLY = position.y;');
+    const noise = `
+      float fh(vec3 p){ p = fract(p * 0.3183099 + 0.1); p *= 17.0; return fract(p.x * p.y * p.z * (p.x + p.y + p.z)); }
+      float fn3(vec3 x){ vec3 i = floor(x), f = fract(x); f = f * f * (3.0 - 2.0 * f);
+        return mix(mix(mix(fh(i), fh(i + vec3(1,0,0)), f.x), mix(fh(i + vec3(0,1,0)), fh(i + vec3(1,1,0)), f.x), f.y),
+                   mix(mix(fh(i + vec3(0,0,1)), fh(i + vec3(1,0,1)), f.x), mix(fh(i + vec3(0,1,1)), fh(i + vec3(1,1,1)), f.x), f.y), f.z); }`;
+    sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec3 vFP; varying float vLY;' + noise)
+      .replace('#include <normal_fragment_begin>', `#include <normal_fragment_begin>
+        vec3 nq = vec3(fn3(vFP * 3.1), fn3(vFP * 3.1 + 11.7), fn3(vFP * 3.1 + 5.3)) - 0.5;
+        normal = normalize(normal + nq * 1.25);`)
+      .replace('#include <map_fragment>', `#include <map_fragment>
+        float fl = fn3(vFP * 1.6) * 0.55 + fn3(vFP * 4.7) * 0.45;
+        diffuseColor.rgb *= (0.50 + 0.85 * fl) * mix(0.55, 1.05, smoothstep(-0.9, 0.7, vLY));`);
+  };
+  _fol = m; return m;
+}
+
 // ağaçlar
 function trees(list, { kind = 'round' } = {}) {
   const g = new THREE.Group();
@@ -136,12 +161,18 @@ function trees(list, { kind = 'round' } = {}) {
   }
   const trunkG = new THREE.CylinderGeometry(0.5, 0.7, 1, 5);
   if (trunks.length) g.add(instanced(trunkG, lam(0x5a4636), trunks));
-  const crownG = new THREE.IcosahedronGeometry(1, 1);
-  { const p = crownG.attributes.position; const r = rng(3); for (let i = 0; i < p.count; i++) { const k = 1 + (noise2(p.getX(i) * 2.3, p.getY(i) * 2.3 + p.getZ(i)) * 0.16); p.setXYZ(i, p.getX(i) * k, p.getY(i) * k, p.getZ(i) * k); } crownG.computeVertexNormals(); }
-  if (crowns.length) g.add(instanced(crownG, lam(0xffffff), crowns));
-  if (olives.length) { const og = crownG.clone(); g.add(instanced(og, lam(0xffffff), olives)); }
-  const cypG = new THREE.SphereGeometry(1, 12, 10); cypG.scale(0.5, 0.5, 0.5);
-  if (cyp.length) g.add(instanced(cypG, lam(0xffffff), cyp));
+  const makeCrown = (detail) => {
+    let cg = new THREE.IcosahedronGeometry(1, detail);
+    cg.deleteAttribute('normal'); cg.deleteAttribute('uv'); cg = mergeVertices(cg);
+    const p = cg.attributes.position;
+    for (let i = 0; i < p.count; i++) { const x = p.getX(i), y = p.getY(i), z = p.getZ(i); const k = 1 + noise2(x * 2.1, y * 2.1 + z) * 0.20 + noise2(x * 5.3 + 3, z * 5.3 - y) * 0.07; p.setXYZ(i, x * k, y * k, z * k); }
+    cg.computeVertexNormals(); return cg;
+  };
+  const fol = foliageMaterial();
+  if (crowns.length) g.add(instanced(makeCrown(2), fol, crowns));
+  if (olives.length) { g.add(instanced(makeCrown(1), fol, olives)); }
+  const cypG = new THREE.SphereGeometry(1, 14, 12); cypG.scale(0.5, 0.5, 0.5);
+  if (cyp.length) g.add(instanced(cypG, fol, cyp));
   return g;
 }
 
