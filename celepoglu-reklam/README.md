@@ -60,4 +60,14 @@ python3 audio/make_audio.py # audio/mix_raw.wav
 bash assemble.sh out/frames # out/…_4K_60fps.mp4 ve …_1080p_60fps.mp4
 ```
 
+### Instagram Reels kapağı (1080×1920)
+
+```bash
+node src/still.js out/kapak/zemin 2160 3840 kapak_kamera.json        # 2× dikey render → out/kapak/zemin_F3.png
+ffmpeg -i out/kapak/zemin_F3.png -vf scale=1080:1920:flags=lanczos out/kapak/zemin.png
+node src/kapak.js out/kapak/reels_kapak.png                            # logo + slogan katmanı (kapak.html)
+```
+
+Kapaktaki tüm yazılar, profil ızgarasının gösterdiği ortadaki 1080×1440 alanın (y 240–1680) içindedir.
+
 Ses seviyesi web için −14 LUFS'tur. TV yayını (EBU R128 / −23 LUFS) için `assemble.sh` içindeki `AF` değerini `volume=-9.9dB` yapın.

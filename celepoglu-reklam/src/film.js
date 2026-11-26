@@ -10,7 +10,7 @@ import { setupOverlay, updateOverlay } from './overlay.js';
 import { loadLogos } from './logo.js';
 
 const q = new URLSearchParams(location.search);
-const W = +(q.get('w') || 1920), H = Math.round(W * 9 / 16);
+const W = +(q.get('w') || 1920), H = +(q.get('h') || Math.round(W * 9 / 16));
 export const FPS = 60, DURATION = 60;
 
 if (document.readyState !== 'complete') await new Promise(r => addEventListener('load', r));
@@ -426,6 +426,20 @@ window.renderAt = (frame) => {
   if (t > 55.0) fade = smooth((t - 55.0) / 0.75);
   E.render(frame, { fade, flash, dof: shotNow.dofNow });
   updateOverlay(t);
+};
+// Tek kare (afiş / Reels kapağı): film zaman çizelgesinden bağımsız serbest kamera, yazısız
+window.renderStill = (o = {}) => {
+  const ov = document.getElementById('ov'); if (ov) ov.style.display = 'none';
+  show(o.zone || 'highway');
+  driver.root.visible = false; van.group.visible = true;
+  const vp = o.van || [PARK.x, PARK.z];
+  placeVan(vp[0], vp[1], o.heading ?? Math.PI, 0, { lights: o.lights ?? 0.8, drl: o.drl ?? 4 });
+  E.setSky({ ...P[o.preset || 'sunset'], ...(o.sky || {}) });
+  E.aimSun(V3(vp[0], 0, vp[1]), o.shadow || 12, 60);
+  cam(V3(...o.pos), V3(...o.look), o.fov || 45);
+  const k = Math.min(W, H) / 1080;
+  const dof = o.dof ? { focus: o.dof.focus ?? camera.position.distanceTo(lastLook), aperture: o.dof.a * k, max: o.dof.max * k } : null;
+  E.render(o.frame ?? 3150, { fade: 0, flash: 0, dof });
 };
 window.duration = DURATION; window.fps = FPS;
 window.ready = true;

@@ -1,0 +1,37 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><title>Reels Kapağı</title>
+<link rel="stylesheet" href="/node_modules/@fontsource/montserrat/600.css">
+<link rel="stylesheet" href="/node_modules/@fontsource/montserrat/700.css">
+<link rel="stylesheet" href="/node_modules/@fontsource/montserrat/800.css">
+<style>
+/* Instagram Reels kapağı 1080x1920. Profil ızgarası ortadaki 1080x1440'ı (y 240–1680) gösterir: tüm yazılar bu alanda. */
+:root { --ink: #060709; --white: #ffffff; --red: #e60000; }
+html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: var(--ink); }
+.k { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: Montserrat, Arial, sans-serif; color: var(--white); }
+.bg { position: absolute; inset: 0; background: url(/out/kapak/zemin.png) center / cover no-repeat; }
+.top { position: absolute; left: 0; right: 0; top: 0; height: 840px;
+  background: linear-gradient(180deg, rgba(6,7,9,.95) 0px, rgba(6,7,9,.82) 250px, rgba(6,7,9,.45) 560px, rgba(6,7,9,0) 840px); }
+.bot { position: absolute; left: 0; right: 0; bottom: 0; height: 760px;
+  background: linear-gradient(0deg, rgba(6,7,9,.97) 0px, rgba(6,7,9,.88) 380px, rgba(6,7,9,.4) 600px, rgba(6,7,9,0) 760px); }
+.logo { position: absolute; left: 50%; top: 300px; width: 840px; transform: translateX(-50%);
+  filter: drop-shadow(0 0 1.5px rgba(255,255,255,.75)) drop-shadow(0 0 10px rgba(255,255,255,.38)) drop-shadow(0 0 28px rgba(255,255,255,.14)); }
+.title { position: absolute; left: 0; right: 0; top: 1352px; margin: 0; text-align: center;
+  font-weight: 800; font-size: 76px; line-height: 1.08; letter-spacing: 0.02em; text-shadow: 0 4px 28px rgba(0,0,0,.55); }
+.title .red { color: var(--red); }
+.rule { position: absolute; left: 50%; top: 1556px; width: 96px; height: 5px; background: var(--red); transform: translateX(-50%); }
+.services { position: absolute; left: 0; right: 0; top: 1584px; margin: 0; text-align: center;
+  font-weight: 700; font-size: 27px; letter-spacing: 0.16em; color: rgba(255,255,255,.93); }
+.loc { position: absolute; left: 0; right: 0; top: 1632px; margin: 0; text-align: center;
+  font-weight: 600; font-size: 23px; letter-spacing: 0.45em; color: rgba(255,255,255,.62); }
+</style></head>
+<body>
+<div class="k">
+  <div class="bg"></div>
+  <div class="top"></div>
+  <div class="bot"></div>
+  <img class="logo" src="/assets/logo_koyu_zemin.png" alt="Celepoğlu Taşımacılık">
+  <h1 class="title">YOLUNUZ,<br><span class="red">GÜVENLE</span> BİZİMLE.</h1>
+  <div class="rule"></div>
+  <p class="services">ÖĞRENCİ · PERSONEL · VIP TAŞIMACILIK</p>
+  <p class="loc">İZMİR / TİRE</p>
+</div>
+</body></html>
