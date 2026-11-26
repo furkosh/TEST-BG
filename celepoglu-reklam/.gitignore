@@ -1,0 +1,4 @@
+*.wav
+output/_*
+*.part*.mp4
+__pycache__/
