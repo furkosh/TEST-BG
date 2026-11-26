@@ -1,0 +1,20 @@
+{
+  "name": "celepoglu-reklam",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Celepoğlu Taşımacılık – 60 sn kurumsal reklam filmi (prosedürel 3B animasyon, three.js)",
+  "scripts": {
+    "preview": "node src/frames.js out/onizleme 2.0,10.0,26.0,36.0,48.5,58.0 960",
+    "render": "node src/render.js out/frames 1600 0 1",
+    "audio": "python3 audio/make_audio.py",
+    "assemble": "bash assemble.sh out/frames"
+  },
+  "dependencies": {
+    "@fontsource/montserrat": "^5.1.0",
+    "@fontsource/playfair-display": "^5.1.0",
+    "three": "0.169.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.49.0"
+  }
+}

@@ -1,0 +1,5 @@
+node_modules/
+out/
+*.tmp
+audio/mix_raw.wav
+audio/stem_*.wav
